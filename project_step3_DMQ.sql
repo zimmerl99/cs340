@@ -1,5 +1,5 @@
 -- all varibles are denoted by a : (eg :locationNameInput)
-
+----------------------------------------------------------
 
 -- get all cars make, model, modelYear, and carValue for the cars.html list
 SELECT make, model, modelYear, carValue FROM Cars
@@ -49,3 +49,9 @@ DELETE FROM Cars WHERE carID = :carIDInput;
 DELETE FROM Customers WHERE customerID  = :customerIDInput;
 DELETE FROM Locations WHERE locationID = :locationIDInput;
 DELETE FROM Transactions WHERE salesID = :salesIDInput;
+
+-- update queries for all sheets
+UPDATE Cars SET make = :makeInput, model= :modelInput, modelYear = :modelYearInput, carvalue = :carValueInput WHERE carID= :carIDInput;
+UPDATE Customers SET name = :nameInput, contactNumber= :contactNumberInput WHERE customerID= :customerIDInput;
+UPDATE Locations SET locationName = :locationNameInput WHERE locationID= :locationIDInput;
+UPDATE Transactions SET transactionDate = :transactionDateInput, customerID= :customerIDInput, toLocation = :toLocationInput, fromLocation = :fromLocationInput WHERE salesID= :salesIDInput;
