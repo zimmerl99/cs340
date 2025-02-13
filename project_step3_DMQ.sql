@@ -43,3 +43,9 @@ DELETE FROM TransactionCars WHERE transactionCarID = :transactionCarIDInput;
 
 -- update transactionCars by transactionCarID
 UPDATE TransactionCars SET carID = :carIDInput, salePrice = :salePriceInput WHERE transactionCarID = :transactionCarIDInput;
+
+-- delete queries for all sheets
+DELETE FROM Cars WHERE carID = :carIDInput;
+DELETE FROM Customers WHERE customerID  = :customerIDInput;
+DELETE FROM Locations WHERE locationID = :locationIDInput;
+DELETE FROM Transactions WHERE salesID = :salesIDInput;
