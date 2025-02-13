@@ -1,3 +1,6 @@
+-- all varibles are denoted by a : (eg :locationNameInput)
+
+
 -- get all cars make, model, modelYear, and carValue for the cars.html list
 SELECT make, model, modelYear, carValue FROM Cars
 
