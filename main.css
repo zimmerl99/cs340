@@ -1,0 +1,98 @@
+html {
+    background-color: lightgray;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 1%;
+}
+h1, h2, h3, h4 {
+    background-color: aliceblue;
+    font-size: 28px;
+    color: darkgreen;
+    padding: 2%;
+    margin: 0.5%;
+}
+h2 {
+    color: blue;
+    font-size: 22px;
+    margin-bottom: 0%;
+}
+a {
+    background-color: white;
+    border:1px solid black;
+    border-radius:5px 5px 5px 5px; 
+    color: var(--h2-font-green);
+    margin-left: 3px;
+    padding: 5px;
+    text-decoration:none;
+    font-size: 15px;
+    margin: 2%;
+    padding: 1%;
+}
+nav {
+    text-align: right;
+    color: black;
+    padding: 2%;
+    margin: 0.5%;
+}
+nav a {
+    background-color: lightblue;
+    border:2px solid lightsalmon;
+    border-radius:5px 5px 0 0; 
+    color: var(--h2-font-green);
+    margin-left: 3px;
+    padding: 5px;
+    text-decoration:none;
+}
+p {
+    background-color: rgb(255, 127, 138);
+    font-size: 14px;
+    color: black;
+    padding: 2%;
+    margin: 0.5%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black; /* Add outer border */
+}
+th, td {
+    border: 1px solid black; /* Add lines to cells */
+    padding: 8px;
+    text-align: left;
+}
+textarea {
+    margin: 2%;
+    padding: 0.5%;
+}
+input {
+    font-size: 16px;
+    margin: 2%;
+    padding: 0.5%;
+}
+select {
+    font-size: 16px;
+    margin: 2%;
+    padding: 0.5%;
+}
+legend {
+    background-color: aliceblue;
+    color: darkgreen;
+    font-size: 16px;
+    margin-top: 2%;
+    margin-left: 2px;
+    padding: 0.5%;
+}
+input {
+    background-color: white;
+    border:1px solid black;
+    border-radius:5px 5px 5px 5px; 
+    color: var(--h2-font-green);
+    margin-left: 3px;
+    padding: 5px;
+    text-decoration:none;
+    font-size: 15px;
+    margin: 2%;
+    padding: 1%;
+}
