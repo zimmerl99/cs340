@@ -1,0 +1,101 @@
+<html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+    </head>
+<body>
+    <header>
+        <h1>Transaction Details</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="cars.html">Cars</a>
+        <a href="customers.html">Customers</a>
+        <a href="locations.html">Locations</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="transactionCars.html">Transactions Details</a>
+    </nav>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Sales ID</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Sale Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="update/updateTransactionDetail.html">Edit</a>
+                    </td>
+                    <td>
+                        <a href="delete/deleteTransactionDetail.html">Delete</a>
+                    </td>
+                    <td>1</td>
+                    <td>Ford</td>
+                    <td>Focus</td>
+                    <td>2010</td>
+                    <td>10,000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="update/updateTransactionDetail.html">Edit</a>
+                    </td>
+                    <td>
+                        <a href="delete/deleteTransactionDetail.html">Delete</a>
+                    </td>
+                    <td>2</td>
+                    <td>Nissan</td>
+                    <td>Skyline</td>
+                    <td>2024</td>
+                    <td>40,000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="update/updateTransactionDetail.html">Edit</a>
+                    </td>
+                    <td>
+                        <a href="delete/deleteTransactionDetail.html">Delete</a>
+                    </td>
+                    <td>3</td>
+                    <td>Ferrari</td>
+                    <td>360 Modena</td>
+                    <td>1999</td>
+                    <td>500,000</td>
+                </tr>
+            </tbody>
+        </table>    
+    </main>
+    <main id="insert">
+        <form method="POST" id="addTransaction">
+            <legend><strong>Add Transaction</strong></legend>
+            <fieldset class="fields">
+                <label> Sales ID: </label> <input type="text" name="Sales ID" placeholder="Enter Here...">
+                <br>
+                <label> Make: </label> <input type="text" name="Make" placeholder="Enter Here...">
+                <br>
+                <label> Model: </label> <input type="text" name="Model" placeholder="Enter Here...">
+                <br>
+                <label> Year: </label> <input type="text" name="Year" placeholder="Enter Here...">
+                <br>
+                <label> Sale Price: </label> <input type="text" name="Sale Price" placeholder="Enter Here...">
+            </fieldset>
+            <br>
+            <input class="btn" type="submit" id="addCustomer" value="Add Transaction">
+            <input class="btn" type="button" value="Cancel" onClick="">
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+    </footer>
+</body>
+</html>
+

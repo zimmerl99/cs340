@@ -10,7 +10,7 @@
     
     <body>
         <header>
-            <h1>Customers</h1>
+            <h1>Transaction Details</h1>
         </header>
     
         <nav>
@@ -21,23 +21,29 @@
             <a href="https://web.engr.oregonstate.edu/~xiongyup/group-project/transactions.html">Transactions</a>
             <a href="https://web.engr.oregonstate.edu/~xiongyup/group-project/transactionCars.html">Transaction Details</a>
         </nav>
-        <main id="delete" style="display: block">
-            <form method="POST" id="deleteCustomer">
-                <legend><strong>Delete Person</strong></legend>
+        <main id="update">
+            <form method="POST" id="updateTransactionDetail">
+                <legend><strong>Update Transaction Details</strong></legend>
                 <fieldset class="fields">
-                    <p style="background-color: #CD212A;"><strong>HOLD UP!!! Are you sure you want to delete this customer?</strong></p>
                     <input type="hidden">
-                    <label> <strong>Name</strong> </label> 
-                    <select name="Name">
-                        <option value="0">&nbsp;</option>
-                        <option value="1">Didi Gregorious</option>
-                        <option value="2">Aaron Judge</option>
-                        <option value="3">Jazz Chisholm</option>
-                    </select>
+                    <label> Sales ID: </label>
+                    <input type="text" name="TransactionDate">
+                    <br>
+                    <label> Make: </label>
+                        <input type="text" name="Make">
+                    <br>
+                        <label> Model: </label> 
+                        <input type="text" name="Model">
+                    <br>
+                        <label> Model Year: </label> 
+                        <input type="text" name="Model Year">
+                    <br>
+                        <label> Car Value($): </label> 
+                        <input type="text" name="Car Value($)">
                 </fieldset>
                 <br>
-                <a onclick="" href="https://web.engr.oregonstate.edu/~xiongyup/group-project/customers.html">Delete Customer</a>
-                <a onclick="" href="https://web.engr.oregonstate.edu/~xiongyup/group-project/customers.html">Cancel</a>
+                <a onclick="" href="https://web.engr.oregonstate.edu/~xiongyup/group-project/transactionCars.html">Update Transaction</a>
+                <a onclick="" href="https://web.engr.oregonstate.edu/~xiongyup/group-project/transactionCars.html">Cancel</a>
             </form>
         </main>
     </body>
