@@ -23,7 +23,7 @@
 
                     <tr>
                         <th>Edit</th>
-                        <td>Delete</td>
+                        <th>Delete</th>
                         <th>LocationName</th>
                     </tr>
                 </thead>
@@ -58,6 +58,16 @@
                 </tbody>
             </table>
         </main>
-
+        <main id="insert">
+            <form method="POST" id="addLocation">
+                <legend><strong>Add Location</strong></legend>
+                <fieldset class="fields">
+                    <label> Location Name: </label> <input type="text" name="Location Name" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Location">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
+        </main>
     </body>
 </html>

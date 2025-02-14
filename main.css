@@ -1,72 +1,94 @@
+:root {
+    --FerrariRed:#CD212A;
+    --FerrariYellow: #FFF200;
+    --FerrariGreen: #008C45;
+    --Black: #000000;
+    --White: #FFFFFF;
+    --NissanBlue: #001DC5;
+    --Silver: #6f6f6f;
+    --MidnightPurple: #1b0343;
+}
+
 html {
-    background-color: lightgray;
+    background-color: var(--FerrariYellow);
 }
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
     padding: 1%;
 }
+main {
+    background-color: var(--FerrariYellow);
+}
 h1, h2, h3, h4 {
-    background-color: aliceblue;
+    background-color: var(--FerrariGreen);
     font-size: 28px;
-    color: darkgreen;
+    color: var(--Black);
     padding: 2%;
     margin: 0.5%;
 }
 h2 {
-    color: blue;
+    background-color: var(--FerrariRed);
+    color: var(--Black);
     font-size: 22px;
     margin-bottom: 0%;
 }
 a {
-    background-color: white;
-    border:1px solid black;
+    background-color: var(--White);
+    border:2px solid var(--MidnightPurple);
     border-radius:5px 5px 5px 5px; 
-    color: var(--h2-font-green);
+    color: var(--Black);
     margin-left: 3px;
     padding: 5px;
     text-decoration:none;
     font-size: 15px;
     margin: 2%;
-    padding: 1%;
+    padding: 0.5%;
 }
 nav {
-    text-align: right;
-    color: black;
+    text-align: center;
+    color: var(--Black);
     padding: 2%;
     margin: 0.5%;
 }
 nav a {
-    background-color: lightblue;
-    border:2px solid lightsalmon;
+    background-color: var(--White);
+    border:2px solid var(--MidnightPurple);
     border-radius:5px 5px 0 0; 
-    color: var(--h2-font-green);
+    color: var(--NissanBlue);
     margin-left: 3px;
     padding: 5px;
     text-decoration:none;
 }
 p {
-    background-color: rgb(255, 127, 138);
-    font-size: 14px;
-    color: black;
+    background-color: var(--FerrariYellow);
+    border: 2px solid var(--White);
+    font-size: 16px;
+    color: var(--Black);
     padding: 2%;
     margin: 0.5%;
 }
 table {
+    background-color: var(--FerrariRed);
     width: 100%;
     border-collapse: collapse;
-    border: 2px solid black; /* Add outer border */
+    border: 2px solid ; /* Add outer border */
 }
 th, td {
-    border: 1px solid black; /* Add lines to cells */
+    color: var(--White);
+    border: 1px solid var(--Black); /* Add lines to cells */
     padding: 8px;
     text-align: left;
+}
+th {
+    color: var(--Black);
 }
 textarea {
     margin: 2%;
     padding: 0.5%;
 }
 input {
+    background-color: var(--White);
     font-size: 16px;
     margin: 2%;
     padding: 0.5%;
@@ -77,22 +99,33 @@ select {
     padding: 0.5%;
 }
 legend {
-    background-color: aliceblue;
-    color: darkgreen;
+    background-color: var(--FerrariYellow);
+    color: var(--Black);
     font-size: 16px;
     margin-top: 2%;
+    margin-bottom: 0.5%;
     margin-left: 2px;
     padding: 0.5%;
 }
+strong {
+    padding: 2%;
+    font-size: 16px;
+}
 input {
-    background-color: white;
-    border:1px solid black;
+    background-color: var(--Black);
+    border:3px solid var(--White);
     border-radius:5px 5px 5px 5px; 
-    color: var(--h2-font-green);
-    margin-left: 3px;
-    padding: 5px;
-    text-decoration:none;
+    color: var(--White);
+    margin-left: 2px;
+    text-decoration: none;
     font-size: 15px;
     margin: 2%;
-    padding: 1%;
+    padding: 0.5%;
+}
+fieldset {
+    background-color: var(--FerrariYellow);
+    border-color: var(--Black);
+}
+label {
+    color: var(--Black);
 }

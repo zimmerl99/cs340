@@ -22,7 +22,7 @@
                 <thead>
                     <tr>
                         <th>Edit</th>
-                        <td>Delete</td>
+                        <th>Delete</th>
                         <th>Make</th>
                         <th>Model</th>
                         <th>Model Year</th>
@@ -68,6 +68,23 @@
                     </tr>
                 </tbody>
             </table>
+        </main>
+        <main id="insert">
+            <form method="POST" id="addCars">
+                <legend><strong>Add Cars</strong></legend>
+                <fieldset class="fields">
+                    <label> Make: </label> <input type="text" name="Make" placeholder="Enter Here...">
+                    <br>
+                    <label> Model: </label> <input type="text" name="Model" placeholder="Enter Here...">
+                    <br>
+                    <label> Model Year: </label> <input type="text" name="Model Year" placeholder="Enter Here...">
+                    <br>
+                    <label> Car Value($): </label> <input type="text" name="Car Value($)" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Car">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
         </main>
     </body>
 </html>
