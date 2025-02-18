@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+    </head>
+    <body>
+        <header>
+            <h1>Locations</h1>
+        </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="customers.html">Customers</a>
+            <a href="locations.html">Locations</a>
+            <a href="transactions.html">Transactions</a>
+            <a href="transactionCars.html">Transactions Details</a>
+        </nav>
+        <main>
+            <table>
+                <thead>
+
+                    <tr>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>LocationName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="update/updateLocation.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteLocation.html">Delete</a>
+                        </td>
+                        <td>Japan</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="update/updateLocation.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteLocation.html">Delete</a>
+                        </td>
+                        <td>Saudi Arabia</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="update/updateLocation.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteLocation.html">Delete</a>
+                        </td>
+                        <td>Norway</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <main id="insert">
+            <form method="POST" id="addLocation">
+                <legend><strong>Add Location</strong></legend>
+                <fieldset class="fields">
+                    <label> Location Name: </label> <input type="text" name="Location Name" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Location">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+        </footer>
+    </body>
+</html>

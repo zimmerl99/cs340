@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+    </head>
+    <body>
+        <header>
+            <h1>Transactions</h1>
+        </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="customers.html">Customers</a>
+            <a href="locations.html">Locations</a>
+            <a href="transactions.html">Transactions</a>
+            <a href="transactionCars.html">Transactions Details</a>
+        </nav>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>transactionDate</th>
+                        <th>customerID</th>
+                        <th>fromLocation</th>
+                        <th>toLocation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="update/updateTransaction.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteTransaction.html">Delete</a>
+                        </td>
+                        <td>2025-02-04</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="update/updateTransaction.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteTransaction.html">Delete</a>
+                        </td>
+                        <td>2019-12-25</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="update/updateTransaction.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteTransaction.html">Delete</a>
+                        </td>
+                        <td>2023-11-20</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <main id="insert">
+            <form method="POST" id="addTransaction">
+                <legend><strong>Add Transaction</strong></legend>
+                <fieldset class="fields">
+                    <label> Transactions Date: </label> <input type="text" name="Transaction Date" placeholder="Enter Here...">
+                    <br>
+                    <label> CustomerID: </label> <input type="text" name="CustomerID" placeholder="Enter Here...">
+                    <br>
+                    <label> From Location: </label> <input type="text" name="From Location" placeholder="Enter Here...">
+                    <br>
+                    <label> To Location: </label> <input type="text" name="To Location" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Transaction">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+        </footer>
+    </body>
+</html>

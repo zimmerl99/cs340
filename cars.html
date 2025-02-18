@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+    </head>
+    <body>
+        <header>
+            <h1>Cars</h1>
+        </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="customers.html">Customers</a>
+            <a href="locations.html">Locations</a>
+            <a href="transactions.html">Transactions</a>
+            <a href="transactionCars.html">Transactions Details</a>
+        </nav>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Model Year</th>
+                        <th>Car Value ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="update/updateCar.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteCar.html">Delete</a>
+                        </td>
+                        <td>Ford</td>
+                        <td>Focus</td>
+                        <td>2010</td>
+                        <td>$5,000</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="update/updateCar.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteCar.html">Delete</a>
+                        </td>
+                        <td>Ferrari</td>
+                        <td>360 Modena</td>
+                        <td>1999</td>
+                        <td>$500,000</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="update/updateCar.html">Edit</a>
+                        </td>
+                        <td>
+                            <a href="delete/deleteCar.html">Delete</a>
+                        </td>
+                        <td>Nissan</td>
+                        <td>Skyline</td>
+                        <td>2024</td>
+                        <td>$40,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <main id="insert">
+            <form method="POST" id="addCars">
+                <legend><strong>Add Cars</strong></legend>
+                <fieldset class="fields">
+                    <label> Make: </label> <input type="text" name="Make" placeholder="Enter Here...">
+                    <br>
+                    <label> Model: </label> <input type="text" name="Model" placeholder="Enter Here...">
+                    <br>
+                    <label> Model Year: </label> <input type="text" name="Model Year" placeholder="Enter Here...">
+                    <br>
+                    <label> Car Value($): </label> <input type="text" name="Car Value($)" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Car">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+        </footer>
+    </body>
+</html>
