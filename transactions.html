@@ -8,10 +8,11 @@
     </head>
     <body>
         <header>
-            <h1>Transactions</h1>
+            <h1>Rare Car Imports</h1>
         </header>
         <nav>
             <a href="index.html">Home</a>
+            <a href="diagram.html">Schema Diagram</a>
             <a href="cars.html">Cars</a>
             <a href="customers.html">Customers</a>
             <a href="locations.html">Locations</a>
@@ -19,6 +20,8 @@
             <a href="transactionCars.html">Transactions Details</a>
         </nav>
         <main>
+            <h2>Transactions</h2>
+            <br>
             <table>
                 <thead>
                     <tr>
@@ -70,23 +73,7 @@
                 </tbody>
             </table>
         </main>
-        <main id="insert">
-            <form method="POST" id="addTransaction">
-                <legend><strong>Add Transaction</strong></legend>
-                <fieldset class="fields">
-                    <label> Transactions Date: </label> <input type="text" name="Transaction Date" placeholder="Enter Here...">
-                    <br>
-                    <label> CustomerID: </label> <input type="text" name="CustomerID" placeholder="Enter Here...">
-                    <br>
-                    <label> From Location: </label> <input type="text" name="From Location" placeholder="Enter Here...">
-                    <br>
-                    <label> To Location: </label> <input type="text" name="To Location" placeholder="Enter Here...">
-                </fieldset>
-                <br>
-                <input class="btn" type="submit" id="addCustomer" value="Add Transaction">
-                <input class="btn" type="button" value="Cancel" onClick="">
-            </form>
-        </main>
+        <br>
         <footer>
             <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
         </footer>
