@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+    </head>
+    <body>
+        <header>
+            <h1>Rare Car Imports</h1>
+        </header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main>
+            <h2>Locations</h2>
+            <br>
+            <table id="locations-table">
+                <thead>
+                    <tr>  {{! Names for every column }}
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Location Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr data-value={{this.locationID}}>
+                        <td><button class="update_button">Edit</button></td>
+                        <td><button class="delete_button">Delete</button></td>
+                        <td>{{this.locationName}}</td>
+                        {{!-- <td><button onclick="deleteCar('{{this.make}}', '{{this.model}}')">Delete</button></td> --}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </main>
+        <main id="insert">
+            <form method="POST" id="addLocation">
+                <legend><strong>Add Location</strong></legend>
+                <fieldset class="fields">
+                    <label> Location Name: </label> <input type="text" name="Location Name" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Location">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+        </footer>
+    </body>
+</html>

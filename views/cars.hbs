@@ -1,0 +1,77 @@
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rare Car Imports</title>
+</head>
+
+    <body>
+        <header>
+            <h1>Rare Car Imports</h1>
+        </header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main>
+            <h2>Cars</h2>
+            <br>
+            <table id="cars-table">
+                <thead>
+                    <tr>  {{! Names for every column }}
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Model Year</th>
+                        <th>Car Value ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr data-value={{this.carID}}>
+                        <td><button class="update_button">Edit</button></td>
+                        <td><button class="delete_button">Delete</button></td>
+                        <td>{{this.Make}}</td>
+                        <td>{{this.Model}}</td>
+                        <td>{{this.Year}}</td>
+                        <td>{{this.Value}}</td>
+                        {{!-- <td><button onclick="deleteCar('{{this.make}}', '{{this.model}}')">Delete</button></td> --}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </main>
+        <main id="insert">
+            <form method="POST" id="addCars">
+                <legend><strong>Add Cars</strong></legend>
+                <fieldset class="fields">
+                    <label> Make: </label> <input type="text" name="Make" placeholder="Enter Here...">
+                    <br>
+                    <label> Model: </label> <input type="text" name="Model" placeholder="Enter Here...">
+                    <br>
+                    <label> Model Year: </label> <input type="text" name="Model Year" placeholder="Enter Here...">
+                    <br>
+                    <label> Car Value($): </label> <input type="text" name="Car Value($)" placeholder="Enter Here...">
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="addCustomer" value="Add Car">
+                <input class="btn" type="button" value="Cancel" onClick="">
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+        </footer>
+    </body>
+</html>
+
+<script src="./js/update_person.js"></script>
