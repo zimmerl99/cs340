@@ -1,0 +1,15 @@
+{
+  "name": "cs340",
+  "version": "1.0.0",
+  "description": "First test on using Node for Web Page",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "YuPheng Xiong",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "forever": "^4.0.3"
+  }
+}
