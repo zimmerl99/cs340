@@ -2,7 +2,7 @@
     SETUP
 */
 
-// Express
+// Express setup
 var express = require('express');
 var app = express();
 app.use(express.json())
@@ -11,10 +11,10 @@ app.use(express.static('public'))
 
 PORT = 9330;
 
-// Database
+// Database connector
 var db = require('./database/db-connector')
 
-//HandleBars
+//HandleBars setup
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars'); // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"})); // Create an instance of the handlebars engine to process templates
@@ -24,12 +24,16 @@ app.set('view engine', '.hbs'); // Tell express to use the handlebars engine whe
     ROUTES
 */
 
+/**************************************************************************
+    GET
+**************************************************************************/
+
 // setup routes for each page so navigation is possible
 app.get('/diagram', (req, res) => {
     res.render('diagram');  // render diagram.hbs
 });
 app.get('/', function(req, res) {
-    return res.render('index');
+    return res.render('index'); // render index.hbs as /
 });
 
 
@@ -39,11 +43,9 @@ app.get('/cars', function(req, res)
     // get all cars make, model, modelYear, and carValue for the cars.html list
     let cars_query1 = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
 
-    // Run the 1st query
-    db.pool.query(cars_query1, function(error, rows, fields){
-        
+    // run the get query
+    db.pool.query(cars_query1, function(error, rows, fields){   
         let cars = rows;
-        console.log(rows);
         return res.render('cars', {data: rows});
     })
 });
@@ -54,11 +56,9 @@ app.get('/customers', function(req, res)
     // get name and contactNumber from Customers for cutomers.html list
     let customers_query1 = "SELECT customerID, name, contactNumber FROM Customers";
     
-    // Run the 1st query
+    // run the get query
     db.pool.query(customers_query1, function(error, rows, fields){
-        
         let customers = rows;
-        
         return res.render('customers', {data: customers});
     })
 });                                                    
@@ -69,11 +69,9 @@ app.get('/locations', function(req, res)
     // get locationName from Locations for locations.html list
     let locations_query1 = "SELECT locationID, locationName FROM Locations";
 
-    // Run the 1st query
+    // run the get query
     db.pool.query(locations_query1, function(error, rows, fields){
-        
         let locations = rows;
-        
         return res.render('locations', {data: locations});
     })
 });       
@@ -88,11 +86,9 @@ app.get('/transactions', function(req, res)
         JOIN Locations AS LocationsFrom ON Transactions.fromLocation = LocationsFrom.locationID
         JOIN Locations AS LocationsTo ON Transactions.toLocation = LocationsTo.locationID`;
 
-    // Run the 1st query
+    // run the get query
     db.pool.query(transactions_query1, function(error, rows, fields){
-        
         let transactions = rows;
-        
         return res.render('transactions', {data: transactions});
     })
 });  
@@ -105,57 +101,45 @@ app.get('/transactionCars', function(req, res)
        `SELECT TransactionCars.transactionCarID, TransactionCars.salesID, Cars.make, Cars.model, Cars.modelYear, TransactionCars.salePrice FROM TransactionCars
         JOIN Cars ON TransactionCars.carID = Cars.carID;`;
 
-    // Run the 1st query
+    // run the get query
     db.pool.query(transactionCars_query1, function(error, rows, fields){
-        
         let transactionCars = rows;
-        
         return res.render('transactionCars', {data: transactionCars});
     })
 });  
 
 
+/**************************************************************************
+    POST
+**************************************************************************/
 
-
-
-
-app.post('/add-person-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
+app.post('/add-car-form', function(req, res) {
     let data = req.body;
 
-    // Capture NULL values
-    let homeworld = parseInt(data['input-homeworld']);
-    if (isNaN(homeworld))
+    // make sure to handle if value is null
+    let Value = parseInt(data['input-Value']);
+    if (isNaN(Value))
     {
-        homeworld = 'NULL'
+        Value = 'NULL'
     }
 
-    let age = parseInt(data['input-age']);
-    if (isNaN(age))
-    {
-        age = 'NULL'
-    }
+    // insert a car into cars table in the database
+    post_car_query1 = `INSERT INTO Cars (make, model, modelYear, carValue) VALUES ('${data['input-Make']}', 
+    '${data['input-Model']}', '${data['input-Year']}', '${data['input-Value']}')`;
+    
+    // submit the query
+    db.pool.query(post_car_query1, function(error, rows, fields){
 
-    // Create the query and run it on the database
-    query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data['input-fname']}', '${data['input-lname']}', ${homeworld}, ${age})`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/');
-        }
+        res.redirect('/cars'); // redirect back to cars page
     })
+
 })
+
+
+
+/**************************************************************************
+    DELETE
+**************************************************************************/
 
 app.delete('/delete-person-ajax/', function(req,res,next){
     let data = req.body;
@@ -187,6 +171,12 @@ app.delete('/delete-person-ajax/', function(req,res,next){
                   })
               }
   })});
+
+
+
+/**************************************************************************
+    PUT
+**************************************************************************/
 
   app.put('/put-person-ajax', function(req,res,next){
     let data = req.body;
@@ -222,6 +212,11 @@ app.delete('/delete-person-ajax/', function(req,res,next){
                   })
               }
   })});
+
+
+
+
+
 
 /*
     LISTENER
