@@ -35,6 +35,14 @@ app.get('/diagram', (req, res) => {
 app.get('/', function(req, res) {
     return res.render('index'); // render index.hbs as /
 });
+app.get('/deleteCar', (req, res) => {
+    let dropdown_query1 = "SELECT carID, make AS Make, model AS Model FROM Cars";
+
+    db.pool.query(dropdown_query1, function(error, rows, fields){   
+        console.log("Cars data being sent to template:", rows);
+        return res.render('deleteCar', {data: rows});
+    })
+});
 
 
 app.get('/cars', function(req, res)
@@ -140,37 +148,16 @@ app.post('/add-car-form', function(req, res) {
 /**************************************************************************
     DELETE
 **************************************************************************/
-
-app.delete('/delete-person-ajax/', function(req,res,next){
+app.delete('/delete-car-ajax/', function(req,res,next){ 
     let data = req.body;
-    let personID = parseInt(data.id);
-    let deleteBsg_Cert_People = `DELETE FROM bsg_cert_people WHERE pid = ?`;
-    let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
-  
-  
-          // Run the 1st query
-          db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
-              if (error) {
-  
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              res.sendStatus(400);
-              }
-  
-              else
-              {
-                  // Run the second query
-                  db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
-  
-                      if (error) {
-                          console.log(error);
-                          res.sendStatus(400);
-                      } else {
-                          res.sendStatus(204);
-                      }
-                  })
-              }
-  })});
+    let carID = parseInt(data.id);
+    let deleteCar_from_cars = `DELETE FROM Cars WHERE carID = ?`;
+
+    // run delete query
+    db.pool.query(deleteCar_from_cars, [carID], function(error, rows, fields){
+        res.sendStatus(204);
+    })
+})
 
 
 

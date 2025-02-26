@@ -1,5 +1,4 @@
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <html lang="en">
 <head>
@@ -40,12 +39,11 @@
                     {{#each data}}
                     <tr data-value={{this.carID}}>
                         <td><button class="update_button">Edit</button></td>
-                        <td><button class="delete_button">Delete</button></td>
+                        <td><button onclick="window.location.href='/deleteCar'">Delete</button></td>
                         <td>{{this.Make}}</td>
                         <td>{{this.Model}}</td>
                         <td>{{this.Year}}</td>
                         <td>{{this.Value}}</td>
-                        {{!-- <td><button onclick="deleteCar('{{this.make}}', '{{this.model}}')">Delete</button></td> --}}
                     </tr>
                     {{/each}}
                 </tbody>
