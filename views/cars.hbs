@@ -43,7 +43,7 @@
                         <td>{{this.Make}}</td>
                         <td>{{this.Model}}</td>
                         <td>{{this.Year}}</td>
-                        <td>{{this.Value}}</td>
+                        <td>{{#if this.Value}}{{this.Value}}{{else}}-{{/if}}</td> 
                     </tr>
                     {{/each}}
                 </tbody>
@@ -59,7 +59,7 @@
                     <br>
                     <label> Model Year: </label> <input type="text" name="input-Year" placeholder="Enter Here...">
                     <br>
-                    <label> Car Value($): </label> <input type="text" name="input-Value" placeholder="Enter Here...">
+                    <label> Car Value($): </label> <input type="text" name="input-Value" placeholder="Optional...">
                 </fieldset>
                 <br>
                 <input class="btn" type="submit" id="addCustomer" value="Add Car">

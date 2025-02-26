@@ -132,8 +132,10 @@ app.post('/add-car-form', function(req, res) {
     }
 
     // insert a car into cars table in the database
-    post_car_query1 = `INSERT INTO Cars (make, model, modelYear, carValue) VALUES ('${data['input-Make']}', 
-    '${data['input-Model']}', '${data['input-Year']}', '${data['input-Value']}')`;
+    post_car_query1 =
+        `INSERT INTO Cars (make, model, modelYear, carValue) 
+        VALUES ('${data['input-Make']}', '${data['input-Model']}', '${data['input-Year']}', ${Value})` //'${data['input-Value']}'
+    ;
     
     // submit the query
     db.pool.query(post_car_query1, function(error, rows, fields){
