@@ -1,0 +1,3 @@
+
+# Alisas for "forever"
+alias forever='./node_modules/forever/bin/forever'
