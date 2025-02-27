@@ -35,6 +35,12 @@ INSERT INTO Transactions (transactionDate, customerID, toLocation, fromLocation)
 -- query for the dropdown of customerName so that customerID is still stored in the Transactions table
 SELECT customerID, name FROM Customers;
 
+-- query for the dropdown of deleteCar.hbs
+SELECT carID, make AS Make, model AS Model FROM Cars;
+
+-- query for filling in info for updateCar.hbs
+SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars;
+
 -- insert a transaction Detail into TransactionsCars table
 INSERT INTO TransactionsCars (salesID, carID, salePrice) VALUES (:salesIDInput, :carIDInput, :salePriceInput);
 
@@ -43,6 +49,9 @@ DELETE FROM TransactionCars WHERE transactionCarID = :transactionCarIDInput;
 
 -- update transactionCars by transactionCarID
 UPDATE TransactionCars SET carID = :carIDInput, salePrice = :salePriceInput WHERE transactionCarID = :transactionCarIDInput;
+
+-- update a car in Cars by carID
+UPDATE Cars SET make = :makeInput, model = :modelInput, modelYear = :modelYearInput, carValue = :carValueInput WHERE carID = :carIDInput;
 
 -- delete queries for all sheets
 DELETE FROM Cars WHERE carID = :carIDInput;

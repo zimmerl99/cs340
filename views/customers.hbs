@@ -28,7 +28,7 @@
             <br>
             <table id="customers-table">
                 <thead>
-                    <tr>  {{! Names for every column }}
+                    <tr>
                         <th>Edit</th>
                         <th>Delete</th>
                         <th>Name</th>
@@ -42,7 +42,6 @@
                         <td><button class="delete_button">Delete</button></td>
                         <td>{{this.name}}</td>
                         <td>{{this.contactNumber}}</td>
-                        {{!-- <td><button onclick="deleteCar('{{this.make}}', '{{this.model}}')">Delete</button></td> --}}
                     </tr>
                     {{/each}}
                 </tbody>

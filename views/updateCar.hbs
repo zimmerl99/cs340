@@ -1,0 +1,58 @@
+<html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/updateCar.js"></script> 
+    </head>
+    
+    <body>
+        <header>
+            <h1>Cars</h1>
+        </header>
+    
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main id="update" style="display: block">
+            <form method="POST" id="updateCar">
+                <legend><strong>Update Cars</strong></legend>
+                <fieldset class="fields">
+                    <label> <strong>Updating:</strong> </label> 
+                    <select name="input-carMake" id="input-carMake-ajax">           {{! handlebars dynamically filled dropdown for selecting which car to edit }}
+                        <option value="">Select a Car</option>
+                        {{#each data}}
+                        <option value="{{this.carID}}">{{this.Make}} {{this.Model}}</option>    {{! shows the make and model }}
+                        {{/each}}
+                    </select>
+                    <br>
+                    <label> Make: </label>        {{! value for each input is put into the handlebars variable}}
+                    <input type="text" id="carMake" name="Make" value="{{this.Make}}" required>
+                    <br>
+                    <label> Model: </label> 
+                    <input type="text" id="carModel" name="Model" value="{{this.Model}}" required>
+                    <br>
+                    <label> Model Year: </label> 
+                    <input type="number" id="carYear" name="ModelYear" value="{{this.ModelYear}}" required>
+                    <br>
+                    <label> Car Value($): </label> 
+                    <input type="number" id="carValue" name="CarValue" value="{{this.CarValue}}">
+                </fieldset>
+                <br>
+                <button type="submit" class="delete-btn" >Update Car</button>       {{! onClick submits the POST form in which updateCar.js takes over }}
+                <a href="/cars">Cancel</a>                                          {{! reroutes back to cars.hbs }}
+            </form>
+
+        </main>
+    </body>
+</html>

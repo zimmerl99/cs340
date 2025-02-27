@@ -26,7 +26,7 @@
             <br>
             <table id="cars-table">
                 <thead>
-                    <tr>  {{! Names for every column }}
+                    <tr>
                         <th>Edit</th>
                         <th>Delete</th>
                         <th>Make</th>
@@ -35,22 +35,22 @@
                         <th>Car Value ($)</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> {{! dynamically updated table that shows the sql data in the db in an html table }}
                     {{#each data}}
                     <tr data-value={{this.carID}}>
-                        <td><button class="update_button">Edit</button></td>
-                        <td><button onclick="window.location.href='/deleteCar'">Delete</button></td>
+                        <td><button onclick="window.location.href='/updateCar'">Edit</button></td> {{! edit button routes to updateCar.hbs}}
+                        <td><button onclick="window.location.href='/deleteCar'">Delete</button></td> {{! delete button routes to deleteCar.hbs }}
                         <td>{{this.Make}}</td>
                         <td>{{this.Model}}</td>
                         <td>{{this.Year}}</td>
-                        <td>{{#if this.Value}}{{this.Value}}{{else}}-{{/if}}</td> 
+                        <td>{{#if this.Value}}{{this.Value}}{{else}}-{{/if}}</td> {{! handlebars code to write a " - " if a value is NULL in the db}}
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
         </main>
         <main id="insert">
-            <form method="POST" id="addCar" action="/add-car-form">
+            <form method="POST" id="addCar" action="/add-car-form"> {{! form at the bottom of the page to add a car }}
                 <legend><strong>Add Car</strong></legend>
                 <fieldset class="fields">
                     <label> Make: </label> <input type="text" name="input-Make" placeholder="Enter Here...">
@@ -62,8 +62,7 @@
                     <label> Car Value($): </label> <input type="text" name="input-Value" placeholder="Optional...">
                 </fieldset>
                 <br>
-                <input class="btn" type="submit" id="addCustomer" value="Add Car">
-                <input class="btn" type="button" value="Cancel" onClick="">
+                <input class="btn" type="submit" id="addCustomer" value="Add Car">  {{! onClick it POSTs the form and the app.js route gets the data }}      
             </form>
         </main>
         <footer>
@@ -71,5 +70,3 @@
         </footer>
     </body>
 </html>
-
-<script src="./js/update_person.js"></script>
