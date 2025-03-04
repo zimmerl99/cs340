@@ -35,6 +35,12 @@ INSERT INTO Transactions (transactionDate, customerID, toLocation, fromLocation)
 -- query for the dropdown of customerName so that customerID is still stored in the Transactions table
 SELECT customerID, name FROM Customers;
 
+-- query to get all customers for transactions dropdown
+SELECT customerID, name FROM Customers;
+
+-- query to get all locations for locations dropdown
+SELECT locationID, locationName FROM Locations;
+
 -- query for the dropdown of deleteCar.hbs
 SELECT carID, make AS Make, model AS Model FROM Cars;
 

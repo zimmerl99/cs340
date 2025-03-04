@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each data}}
+                    {{#each transactions}}
                     <tr data-value={{this.salesID}}>
                         <td><button class="update_button">Edit</button></td>
                         <td><button class="delete_button">Delete</button></td>
@@ -47,7 +47,40 @@
                 </tbody>
             </table>
         </main>
-        <br>
+        <main id="insert">
+            <form method="POST" id="addTransaction" action="/add-transaction-form"> {{! form at the bottom of the page to add a car }}
+                <legend><strong>Add Transaction</strong></legend>
+                <fieldset class="fields">
+                    <label> Make: </label> <input type="date" name="input-Date" placeholder="Enter Here...">
+                    <br>
+                    <label> Customer: </label> 
+                    <select name="input-Customer" id="input-Customer-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Customer</option>
+                    {{#each customers}}
+                    <option value="{{this.customerID}}">{{this.customerName}}</option>     {{! displays the name of customer}}
+                    {{/each}}
+                    </select>
+                    <br>
+                    <label> To: </label> 
+                    <select name="input-To" id="input-To-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Location</option>
+                    {{#each locations}}
+                    <option value="{{this.locationID}}">{{this.locationName}}</option>     {{! displays the name of location}}
+                    {{/each}}
+                    </select>
+                    <br>
+                    <label> From: </label> 
+                    <select name="input-From" id="input-From-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Location</option>
+                    {{#each locations}}
+                    <option value="{{this.locationID}}">{{this.locationName}}</option>     {{! displays the name of location}}
+                    {{/each}}
+                    </select>
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="submitTransaction" value="Add Transaction">  {{! onClick it POSTs the form and the app.js route gets the data }}      
+            </form>
+        </main>
         <footer>
             <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
         </footer>

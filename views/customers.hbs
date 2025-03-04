@@ -48,16 +48,15 @@
             </table>
         </main>
         <main id="insert">
-            <form method="POST" id="addCustomer">
+            <form method="POST" id="addCustomer" action="/add-customer-form"> {{! form at the bottom of the page to add a customer }}
                 <legend><strong>Add Customer</strong></legend>
                 <fieldset class="fields">
-                    <label> Name: </label> <input type="text" name="Name" placeholder="Enter Here...">
+                    <label> Name: </label> <input type="text" name="input-Name" placeholder="Enter Here...">
                     <br>
-                    <label> ContactNumber: </label> <input type="text" name="ContactNumber" placeholder="Enter Here...">
+                    <label> ContactNumber: </label> <input type="text" name="input-ContactNumber" placeholder="Enter Here...">
                 </fieldset>
                 <br>
-                <input class="btn" type="submit" id="addCustomer" value="Add Customer">
-                <input class="btn" type="button" value="Cancel" onClick="">
+                <input class="btn" type="submit" id="addCustomer" value="Add Customer">  {{! onClick it POSTs the form and the app.js route gets the data }}
             </form>
         </main>
         <br>

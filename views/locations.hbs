@@ -42,14 +42,13 @@
             </table>
         </main>
         <main id="insert">
-            <form method="POST" id="addLocation">
+            <form method="POST" id="addLocation" action="/add-location-form"> {{! form at the bottom of the page to add a location }}
                 <legend><strong>Add Location</strong></legend>
                 <fieldset class="fields">
-                    <label> Location Name: </label> <input type="text" name="Location Name" placeholder="Enter Here...">
+                    <label> Location Name: </label> <input type="text" name="input-Location" placeholder="Enter Here...">
                 </fieldset>
                 <br>
-                <input class="btn" type="submit" id="addCustomer" value="Add Location">
-                <input class="btn" type="button" value="Cancel" onClick="">
+                <input class="btn" type="submit" id="addlocation" value="Add Location">  {{! onClick it POSTs the form and the app.js route gets the data }}
             </form>
         </main>
         <footer>

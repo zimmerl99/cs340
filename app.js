@@ -20,6 +20,7 @@ var exphbs = require('express-handlebars'); // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"})); // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs'); // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
+
 /*
     ROUTES
 */
@@ -42,7 +43,7 @@ app.get('/deleteCar', (req, res) => {
     let dropdown_query1 = "SELECT carID, make AS Make, model AS Model FROM Cars";
 
     db.pool.query(dropdown_query1, function(error, rows, fields){   
-        
+
         return res.render('deleteCar', {data: rows});           //renders the hbs page and gives it the sql data
     })
 });
@@ -106,12 +107,25 @@ app.get('/transactions', function(req, res)
         JOIN Locations AS LocationsFrom ON Transactions.fromLocation = LocationsFrom.locationID
         JOIN Locations AS LocationsTo ON Transactions.toLocation = LocationsTo.locationID`;
 
+    // query to get all customers for dropdown
+    let transactions_query2 = `SELECT customerID, name AS customerName FROM Customers`;
+
+    // query to get all locations for dropdown
+    let transactions_query3 = `SELECT locationID, locationName FROM Locations`;
+
     // run the get query
-    db.pool.query(transactions_query1, function(error, rows, fields){
-        let transactions = rows;                                                //each transactionCar is a row in the table
-        return res.render('transactions', {data: transactions});                //renders the hbs page and gives it the sql data
-    })
+    db.pool.query(transactions_query1, function(error, transactions) {
+
+        db.pool.query(transactions_query2, function(error, customers) {
+    
+            db.pool.query(transactions_query3, function(error, locations) {
+                //renders the hbs page and gives it the sql data
+                res.render('transactions', {transactions: transactions, customers: customers, locations: locations});
+            });
+        });
+    });
 });  
+
 
 app.get('/transactionCars', function(req, res)
 {
@@ -151,6 +165,54 @@ app.post('/add-car-form', function(req, res) {
     db.pool.query(post_car_query1, [data['input-Make'], data['input-Model'], data['input-Year'], Value], function(error, rows, fields) {
 
         res.redirect('/cars'); // redirect back to cars page
+    });
+
+})
+
+app.post('/add-customer-form', function(req, res) {
+    let data = req.body;                                    // assigns the data from the inputs into the request body
+
+    // insert a customer into Customers table
+    let post_customer_query1 = 
+        `INSERT INTO Customers (name, contactNumber)
+        VALUES (?, ?)`;           // ? are placeholders for program security
+
+    // subit the query
+    db.pool.query(post_customer_query1, [data['input-Name'], data['input-ContactNumber']], function(error, rows, fields) {
+
+        res.redirect('/customers'); // redirect back to cars page
+    });
+
+})
+
+app.post('/add-location-form', function(req, res) {
+    let data = req.body;                                    // assigns the data from the inputs into the request body
+
+    // insert a location into Locations table
+    let post_location_query1 = 
+        `INSERT INTO Locations (locationName)
+        VALUES (?)`;           // ? are placeholders for program security
+
+    // subit the query
+    db.pool.query(post_location_query1, [data['input-Location']], function(error, rows, fields) {
+
+        res.redirect('/locations'); // redirect back to cars page
+    });
+
+})
+
+app.post('/add-transaction-form', function(req, res) {
+    let data = req.body;                                    // assigns the data from the inputs into the request body
+
+    // insert a car into cars table in the database
+    let post_car_query1 = 
+       `INSERT INTO Transactions (transactionDate, customerID, toLocation, fromLocation)
+        VALUES (?, ?, ?, ?)`;           // ? are placeholders for program security
+
+    // subit the query
+    db.pool.query(post_car_query1, [data['input-Date'], data['input-Customer'], data['input-To'], data['input-From']], function(error, rows, fields) {
+
+        res.redirect('/transactions'); // redirect back to cars page
     });
 
 })
