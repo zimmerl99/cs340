@@ -20,7 +20,6 @@ var exphbs = require('express-handlebars'); // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"})); // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs'); // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
-
 /*
     ROUTES
 */
@@ -133,14 +132,29 @@ app.get('/transactionCars', function(req, res)
     // get locationName from Locations for locations.hbl list
     let transactionCars_query1 = 
        `SELECT TransactionCars.transactionCarID, TransactionCars.salesID, Cars.make, Cars.model, Cars.modelYear, TransactionCars.salePrice FROM TransactionCars
-        JOIN Cars ON TransactionCars.carID = Cars.carID;`;
+        JOIN Cars ON TransactionCars.carID = Cars.carID
+        ORDER BY TransactionCars.salesID`;
+
+    // query to get all transactions for dropdown
+    let transactionCars_query2 = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
+                                  JOIN Customers ON Transactions.customerID = Customers.customerID`;
+
+    // query to get all cars for dropdown
+    let transactionCars_query3 = `SELECT Cars.carID, Cars.make AS Make, Cars.model AS Model FROM Cars`;
 
     // run the get query
-    db.pool.query(transactionCars_query1, function(error, rows, fields){
-        let transactionCars = rows;                                             //each transactionCar is a row in the table
-        return res.render('transactionCars', {data: transactionCars});          //renders the hbs page and gives it the sql data
-    })
+    db.pool.query(transactionCars_query1, function(error, transactionCars) {
+
+        db.pool.query(transactionCars_query2, function(error, transactions) {
+    
+            db.pool.query(transactionCars_query3, function(error, cars) {
+                //renders the hbs page and gives it the sql data
+                res.render('transactionCars', {data: transactionCars, transactions: transactions, cars: cars});
+            });
+        });
+    });
 });  
+
 
 
 /**************************************************************************
@@ -205,14 +219,40 @@ app.post('/add-transaction-form', function(req, res) {
     let data = req.body;                                    // assigns the data from the inputs into the request body
 
     // insert a car into cars table in the database
-    let post_car_query1 = 
+    let post_transaction_query1 = 
        `INSERT INTO Transactions (transactionDate, customerID, toLocation, fromLocation)
         VALUES (?, ?, ?, ?)`;           // ? are placeholders for program security
 
     // subit the query
-    db.pool.query(post_car_query1, [data['input-Date'], data['input-Customer'], data['input-To'], data['input-From']], function(error, rows, fields) {
+    db.pool.query(post_transaction_query1, [data['input-Date'], data['input-Customer'], data['input-To'], data['input-From']], function(error, rows, fields) {
 
         res.redirect('/transactions'); // redirect back to cars page
+    });
+
+})
+
+app.post('/add-transactionCar-form', function(req, res) {
+    let data = req.body;                                    // assigns the data from the inputs into the request body
+
+    console.log("Incoming form data:", data);
+
+    // insert a car into cars table in the database
+    let post_transaction_car_query1 = 
+       `INSERT INTO TransactionCars (salesID, carID, salePrice)
+        VALUES (?, ?, ?)`;           // ? are placeholders for program security
+
+    console.log("Executing query:", post_transaction_car_query1);
+    console.log("Query parameters:", [data['input-salesID'], data['input-car'], data['input-salePrice']]);
+
+    // subit the query
+    db.pool.query(post_transaction_car_query1, [data['input-salesID'], data['input-car'], data['input-salePrice']], function(error, rows, fields) {
+        if (error) {
+            console.error('Error executing query:', error);
+            console.error('Full error object:', JSON.stringify(error, null, 2)); // Log the full error object
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.redirect('/transactionCars'); // redirect back to cars page
     });
 
 })

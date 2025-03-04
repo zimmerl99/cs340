@@ -49,10 +49,45 @@
                 </tbody>
             </table>  
     </main>
-    <br>
-    <footer>
-        <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
-    </footer>
-</body>
+    <main id="insert">
+            <form method="POST" id="addTransactionDetail" action="/add-transactionCar-form"> {{! form at the bottom of the page to add a Detail }}
+                <legend><strong>Add Transaction Detail</strong></legend>
+                <fieldset class="fields">
+                    <label> Sale: </label> 
+                    <select name="input-salesID" id="input-salesID-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Transaction</option>
+                    {{#each transactions}}
+                    <option value="{{this.salesID}}">{{this.transactionDate}} {{this.customerName}}</option>     {{! displays the name of customer and date}}
+                    {{/each}}
+                    </select>
+                    <br>
+                    <label> Car: </label> 
+                    <select name="input-car" id="input-car-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Car</option>
+                    {{#each cars}}
+                    <option value="{{this.carID}}">{{this.Make}} {{this.Model}}</option>     {{! displays the name of car}}
+                    {{/each}}
+                    </select>
+                    <label> Sale Price: </label> <input type="number" name="input-salePrice" placeholder="Enter Here..." required>
+                    <br>
+                </fieldset>
+                <br>
+                <input class="btn" type="submit" id="submitTransactionDetail" value="Add Transaction Detail">  {{! onClick it POSTs the form and the app.js route gets the data }}      
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2025 Leo Zimmer / YuPheng Xiong</p>
+        </footer>
+       <script>
+        console.log("Debugging script loaded!"); // Add this line to confirm the script is running
+         document.getElementById('addTransactionDetail').addEventListener('submit', function(event) {
+        const formData = new FormData(event.target);
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+        // Uncomment to submit the form after debugging
+        // event.target.submit();
+    });
+    </script>
+    </body>
 </html>
-
