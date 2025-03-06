@@ -61,9 +61,9 @@ CREATE OR REPLACE TABLE `Transactions` (
   KEY `fk_Transactions_Customers_idx` (`customerID`),
   KEY `fk_Transactions_Locations1_idx` (`fromLocation`),
   KEY `fk_Transactions_Locations2_idx` (`toLocation`),
-  CONSTRAINT `fk_Transactions_Customers` FOREIGN KEY (`customerID`) REFERENCES `Customers` (`customerID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Transactions_Locations1` FOREIGN KEY (`fromLocation`) REFERENCES `Locations` (`locationID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Transactions_Locations2` FOREIGN KEY (`toLocation`) REFERENCES `Locations` (`locationID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Transactions_Customers` FOREIGN KEY (`customerID`) REFERENCES `Customers` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Transactions_Locations1` FOREIGN KEY (`fromLocation`) REFERENCES `Locations` (`locationID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Transactions_Locations2` FOREIGN KEY (`toLocation`) REFERENCES `Locations` (`locationID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- --------------------------------------------------------
@@ -76,8 +76,8 @@ CREATE OR REPLACE TABLE `TransactionCars` (
   PRIMARY KEY (`transactionCarID`),
   KEY `fk_TransactionCars_Transactions1_idx` (`salesID`),
   KEY `fk_TransactionCars_Cars1` (`carID`),
-  CONSTRAINT `fk_TransactionCars_Cars1` FOREIGN KEY (`carID`) REFERENCES `Cars` (`carID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_TransactionCars_Transactions1` FOREIGN KEY (`salesID`) REFERENCES `Transactions` (`salesID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_TransactionCars_Cars1` FOREIGN KEY (`carID`) REFERENCES `Cars` (`carID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_TransactionCars_Transactions1` FOREIGN KEY (`salesID`) REFERENCES `Transactions` (`salesID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 -- Insert Statements

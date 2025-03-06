@@ -42,8 +42,18 @@ app.get('/deleteCar', (req, res) => {
     let dropdown_query1 = "SELECT carID, make AS Make, model AS Model FROM Cars";
 
     db.pool.query(dropdown_query1, function(error, rows, fields){   
-
+        
         return res.render('deleteCar', {data: rows});           //renders the hbs page and gives it the sql data
+    })
+});
+
+app.get('/deleteLocation', (req, res) => {
+    //query for the dropdown of deleteLocation.hbs
+    let dropdown_query2 = "SELECT locationID, locationName AS location FROM Locations";
+
+    db.pool.query(dropdown_query2, function(error, rows, fields){   
+        console.log("Fetched locations:", rows); 
+        return res.render('deleteLocation', {data: rows});           //renders the hbs page and gives it the sql data
     })
 });
 
@@ -52,6 +62,7 @@ app.get('/updateCar', (req, res) => {
     let info_query1 = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
 
     db.pool.query(info_query1, function(error, rows, fields){   
+
 
         return res.render('updateCar', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -262,19 +273,55 @@ app.post('/add-transactionCar-form', function(req, res) {
 /**************************************************************************
     DELETE
 **************************************************************************/
-app.delete('/delete-car-ajax/', function(req, res, next){ 
-    let data = req.body;                                                // assigns the data from deleteCar (being the id of the deleted car) into the request body
-    let carID = parseInt(data.id);                                      // parses the carID into an int and names in carID in the route
 
+app.delete('/delete-car-ajax/', (req, res) => {
+
+    const carID = req.body.id;                                  // assigns the data from deleteCar (being the id of the deleted car) into the request body
+
+    // disable foreign key checks
+    let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
+    
     // query to delete a car by its ID
-    let deleteCar_from_cars = `DELETE FROM Cars WHERE carID = ?`;       
+    let deleteQuery = `DELETE FROM Cars WHERE carID = ?;`;
 
-    // run delete query
-    db.pool.query(deleteCar_from_cars, [carID], function(error, rows, fields){
-        res.sendStatus(204);
-    })
-})
+    // enable foreign key checks
+    let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
 
+    // run the triple query
+    db.pool.query(disableFKQuery, (error) => {
+        db.pool.query(deleteQuery, [carID], (error, results) => {
+            console.log("Delete successful, rows affected:", results.affectedRows);
+            db.pool.query(enableFKQuery, (error) => {
+                res.json({ success: true, rowsDeleted: results.affectedRows });
+            });
+        });
+    });
+});
+
+
+app.delete('/delete-location-ajax/', (req, res) => {
+
+    const locationID = req.body.id;                                  // assigns the data from deleteLocation (being the id of the deleted location) into the request body
+
+    // disable foreign key checks
+    let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
+    
+    // query to delete a location by its ID
+    let deleteQuery = `DELETE FROM Locations WHERE locationID = ?;`;
+
+    // enable foreign key checks
+    let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
+
+    // run the triple query
+    db.pool.query(disableFKQuery, (error) => {
+        db.pool.query(deleteQuery, [locationID], (error, results) => {
+            console.log("Delete successful, rows affected:", results.affectedRows);
+            db.pool.query(enableFKQuery, (error) => {
+                res.json({ success: true, rowsDeleted: results.affectedRows });
+            });
+        });
+    });
+});
 
 
 /**************************************************************************
