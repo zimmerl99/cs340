@@ -7,7 +7,7 @@
 
 function deleteCar() {
   let carID = document.getElementById("input-carMake-ajax").value;
-  console.log(carID);  // Debugging
+  console.log(carID);                             // Debugging
 
   let link = '/delete-car-ajax/';                 // link to deleteCar ajax function
   let data = {                                    // puts the extracted carID into a variable named within the function
@@ -22,13 +22,7 @@ function deleteCar() {
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        console.log("Success response:", result);  // Debugging
-
         window.location.href = "/cars";         // when successful reroutes back to cars.hbs
-      },
-      error: function(xhr, status, error) {
-        console.log("AJAX error:", status, error);  // Debugging
-        console.log("Server response:", xhr.responseText);
       }
   });
 }

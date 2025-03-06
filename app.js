@@ -52,8 +52,29 @@ app.get('/deleteLocation', (req, res) => {
     let dropdown_query2 = "SELECT locationID, locationName AS location FROM Locations";
 
     db.pool.query(dropdown_query2, function(error, rows, fields){   
-        console.log("Fetched locations:", rows); 
+
         return res.render('deleteLocation', {data: rows});           //renders the hbs page and gives it the sql data
+    })
+});
+
+app.get('/deleteCustomer', (req, res) => {
+    //query for the dropdown of deleteCustomer.hbs
+    let dropdown_query1 = "SELECT customerID, name FROM Customers";
+
+    db.pool.query(dropdown_query1, function(error, rows, fields){   
+        
+        return res.render('deleteCustomer', {data: rows});           //renders the hbs page and gives it the sql data
+    })
+});
+
+app.get('/deleteTransaction', (req, res) => {
+    //query for the dropdown of deleteTransaction.hbs
+    let dropdown_query1 = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
+                           JOIN Customers ON Transactions.customerID = Customers.customerID`;
+
+    db.pool.query(dropdown_query1, function(error, rows, fields){   
+        
+        return res.render('deleteTransaction', {data: rows});           //renders the hbs page and gives it the sql data
     })
 });
 
@@ -290,9 +311,9 @@ app.delete('/delete-car-ajax/', (req, res) => {
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
         db.pool.query(deleteQuery, [carID], (error, results) => {
-            console.log("Delete successful, rows affected:", results.affectedRows);
+            console.log("Delete successful");
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true, rowsDeleted: results.affectedRows });
+                res.json({ success: true});
             });
         });
     });
@@ -315,9 +336,57 @@ app.delete('/delete-location-ajax/', (req, res) => {
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
         db.pool.query(deleteQuery, [locationID], (error, results) => {
-            console.log("Delete successful, rows affected:", results.affectedRows);
+            console.log("Delete successful");
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true, rowsDeleted: results.affectedRows });
+                res.json({ success: true });
+            });
+        });
+    });
+});
+
+app.delete('/delete-customer-ajax/', (req, res) => {
+
+    const customerID = req.body.id;                                  // assigns the data from deleteCustomer (being the id of the deleted customer) into the request body
+
+    // disable foreign key checks
+    let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
+    
+    // query to delete a car by its ID
+    let deleteQuery = `DELETE FROM Customers WHERE customerID = ?;`;
+
+    // enable foreign key checks
+    let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
+
+    // run the triple query
+    db.pool.query(disableFKQuery, (error) => {
+        db.pool.query(deleteQuery, [customerID], (error, results) => {
+            console.log("Delete successful");
+            db.pool.query(enableFKQuery, (error) => {
+                res.json({ success: true});
+            });
+        });
+    });
+});
+
+app.delete('/delete-transaction-ajax/', (req, res) => {
+
+    const transactionID = req.body.id;                                  // assigns the data from deleteTransaction (being the id of the deleted transaction) into the request body
+
+    // disable foreign key checks
+    let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
+    
+    // query to delete a car by its ID
+    let deleteQuery = `DELETE FROM Transactions WHERE salesID = ?;`;
+
+    // enable foreign key checks
+    let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
+
+    // run the triple query
+    db.pool.query(disableFKQuery, (error) => {
+        db.pool.query(deleteQuery, [transactionID], (error, results) => {
+            console.log("Delete successful");
+            db.pool.query(enableFKQuery, (error) => {
+                res.json({ success: true });
             });
         });
     });

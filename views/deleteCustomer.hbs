@@ -8,13 +8,11 @@
         <link rel="stylesheet" href="/css/main.css" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Rare Car Imports</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="/js/deleteCar.js"></script> 
     </head>
     
     <body>
         <header>
-            <h1>Cars</h1>
+            <h1>Customers</h1>
         </header>
     
         <nav>
@@ -27,20 +25,22 @@
             <a href="/transactionCars">Transactions Details</a>
         </nav>
         <main id="delete" style="display: block">
-            <legend><strong>Delete Car</strong></legend>
+            <legend><strong>Delete Customer</strong></legend>
             <fieldset class="fields">
-                <p style="background-color: #CD212A;"><strong>HOLD UP!!! Are you sure you want to delete this car?</strong></p>
-                <label> <strong>Car Name</strong> </label> 
-                <select name="input-carMake" id="input-carMake-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
-                    <option value="">Select a Car</option>
+                <p style="background-color: #CD212A;"><strong>HOLD UP!!! Are you sure you want to delete this customer?</strong></p>
+                <label> <strong>Customer Name</strong> </label> 
+                <select name="input-customer" id="input-customer-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Customer</option>
                     {{#each data}}
-                    <option value="{{this.carID}}">{{this.Make}} {{this.Model}}</option>     {{! displays the make and model of each car }}
+                    <option value="{{this.customerID}}">{{this.name}}</option>     {{! displays the make and model of each customer }}
                     {{/each}}
                     </select>
             </fieldset>
             <br>
-            <button type="button" class="delete-btn" onclick="deleteCar()">Delete</button>    {{! onClick it calls the deleteCar() js function in deleteCar.js }}
-            <a onclick="" href="/cars">Cancel</a>                                             {{! onClick it goes back to cars.hbs }}
+            <button type="button" class="delete-btn" onclick="deleteCustomer()">Delete</button>    {{! onClick it calls the deleteCustomer() js function in deleteCustomer.js }}
+            <a onclick="" href="/customers">Cancel</a>                                             {{! onClick it goes back to customers.hbs }}
         </main>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/deleteCustomer.js"></script> 
     </body>
 </html>

@@ -19,7 +19,6 @@
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         success: function(result) {
-          console.log(data);  // Debugging
           window.location.href = "/locations";         // when successful reroutes back to locations.hbs
         }
     });
