@@ -100,6 +100,17 @@ app.get('/updateCar', (req, res) => {
     })
 });
 
+app.get('/updateCustomer', (req, res) => {
+    // query for filling in info for updateCustomer.hbs
+    let info_query1 = "SELECT customerID, name, contactNumber FROM Customers";
+
+    db.pool.query(info_query1, function(error, rows, fields){   
+
+
+        return res.render('updateCustomer', {data: rows});           //renders the hbs page and gives it the sql data
+    })
+});
+
 app.get('/cars', function(req, res)
 {
     // Cars Queries
@@ -456,7 +467,28 @@ app.put('/cars/:id', function(req, res) {                   //  uses /cars/:id t
     });
 });
 
+// Route for updating a customer
+app.put('/customers/:id', function(req, res) {                  //  uses /customers/:id to directly update the customer instead of going through updateCustomer
+    let customerID = req.params.id;                                  // retrieves the id from the request url and makes it customerID
+    let { Name, ContactNumber} = req.body;        // assigns the data from the input into each variable
 
+    // query to update a customer in Customers by customerID using ? as placeholder
+    const updateCustomerQuery =                                      
+       `UPDATE Customers 
+        SET name = ?, contactNumber = ?
+        WHERE customerID = ?
+    `;
+
+    //submit the update query
+    db.pool.query(updateCustomerQuery, [Name, ContactNumber, customerID], function(error, results, fields) {
+        if (error) {
+            console.error("Error updating customer:", error);    //if there is an error message the console
+            return;
+        }
+        res.sendStatus(200);
+        console.log("Customer updated successfully!");
+    });
+});
 
 
 

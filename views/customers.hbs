@@ -38,7 +38,7 @@
                 <tbody>
                     {{#each data}}
                     <tr data-value={{this.customerID}}>
-                        <td><button class="update_button">Edit</button></td>
+                        <td><button onclick="window.location.href='/updateCustomer'">Edit</button></td> {{! edit button routes to updateCustomer.hbs}}
                         <td><button onclick="window.location.href='/deleteCustomer'">Delete</button></td> {{! delete button routes to deleteCar.hbs }}
                         <td>{{this.name}}</td>
                         <td>{{this.contactNumber}}</td>
