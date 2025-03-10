@@ -36,7 +36,7 @@
                 <tbody>
                     {{#each transactions}}
                     <tr data-value={{this.salesID}}>
-                        <td><button class="update_button">Edit</button></td>
+                        <td><button onclick="window.location.href='/updateTransaction'">Edit</button></td> {{! edit button routes to updateTransaction.hbs}}
                         <td><button onclick="window.location.href='/deleteTransaction'">Delete</button></td> {{! delete button routes to deleteTransaction.hbs }}
                         <td>{{this.transactionDate}}</td>
                         <td>{{this.Name}}</td>
@@ -51,7 +51,7 @@
             <form method="POST" id="addTransaction" action="/add-transaction-form"> {{! form at the bottom of the page to add a car }}
                 <legend><strong>Add Transaction</strong></legend>
                 <fieldset class="fields">
-                    <label> Make: </label> <input type="date" name="input-Date" placeholder="Enter Here...">
+                    <label> Date: </label> <input type="date" name="input-Date" placeholder="Enter Here...">
                     <br>
                     <label> Customer: </label> 
                     <select name="input-Customer" id="input-Customer-ajax">     {{! handlebars dropdown that is dynamically filled with data }}

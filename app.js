@@ -111,6 +111,59 @@ app.get('/updateCustomer', (req, res) => {
     })
 });
 
+app.get('/updateLocation', (req, res) => {
+    // query for filling in info for updateLocation.hbs
+    let info_query1 = "SELECT locationID, locationName FROM Locations";
+
+    db.pool.query(info_query1, function(error, rows, fields){   
+
+        return res.render('updateLocation', {data: rows});           //renders the hbs page and gives it the sql data
+    })
+});
+
+app.get('/updateTransaction', (req, res) => {
+    // query for filling in info for updateTransaction.hbs
+    let info_query1 = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
+                       JOIN Customers ON Transactions.customerID = Customers.customerID`;
+
+    // query to get all customers for dropdown
+    let info_query2 = `SELECT customerID, name AS customerName FROM Customers`;
+
+    // query to get all locations for dropdown
+    let info_query3 = `SELECT locationID, locationName FROM Locations`;
+
+    // run the get query
+    db.pool.query(info_query1, function(error, transactions) {
+
+        db.pool.query(info_query2, function(error, customers) {
+    
+            db.pool.query(info_query3, function(error, locations) {
+                //renders the hbs page and gives it the sql data
+                res.render('updateTransaction', {transactions: transactions, customers: customers, locations: locations});
+            });
+        });
+    });
+});  
+
+app.get('/updateTransactionCar', (req, res) => {
+    // query for filling in info for updateTransactionCar.hbs
+    let info_query1 = `SELECT TransactionCars.salesID, TransactionCars.transactionCarID, Cars.carID, Cars.make, Cars.model FROM TransactionCars
+                       JOIN Cars on TransactionCars.carID = Cars.carID`;
+
+    // query to get all cars for dropdown
+    let info_query2 = `SELECT carID, make, model from Cars`;
+
+    // run the get query
+    db.pool.query(info_query1, function(error, transactions) {
+
+        db.pool.query(info_query2, function(error, cars) {
+            //renders the hbs page and gives it the sql data
+            res.render('updateTransactionCar', {transactions: transactions, cars: cars});
+        });
+
+    });
+}); 
+
 app.get('/cars', function(req, res)
 {
     // Cars Queries
@@ -490,6 +543,74 @@ app.put('/customers/:id', function(req, res) {                  //  uses /custom
     });
 });
 
+// Route for updating a Location
+app.put('/locations/:id', function(req, res) {                   //  uses /locations/:id to directly update the car instead of going through updateLocation
+    let locationID = req.params.id;                              // retrieves the id from the request url and makes it LocationID
+    let { Name } = req.body;                                    // assigns the data from the input into each variable
+
+    // query to update a location in Locations by locationID using ? as placeholder
+    const updateLocationQuery =                                      
+       `UPDATE Locations 
+        SET locationName = ?
+        WHERE locationID = ?
+    `;
+
+    //submit the update query
+    db.pool.query(updateLocationQuery, [Name, locationID], function(error, results, fields) {
+        if (error) {
+            console.error("Error updating Location:", error);    //if there is an error message the console
+            return;
+        }
+        res.sendStatus(200);
+        console.log("Location updated successfully!");
+    });
+});
+
+// Route for updating a transaction
+app.put('/transactions/:id', function(req, res) {                   //  uses /transactions/:id to directly update the transaction instead of going through updateTransaction
+    let salesID = req.params.id;                                      // retrieves the id from the request url and makes it salesID
+    let { Date, Name, To, From } = req.body;            // assigns the data from the input into each variable
+
+    // query to update a transaction in transactions by salesID using ? as placeholder
+    const updateTransactionQuery =                                      
+       `UPDATE Transactions
+        SET transactionDate = ?, customerID = ?, toLocation = ?, fromLocation = ?
+        WHERE salesID = ?
+    `;
+
+    //submit the update query
+    db.pool.query(updateTransactionQuery, [Date, Name, To, From, salesID], function(error, results, fields) {
+        if (error) {
+            console.error("Error updating transaction:", error);    //if there is an error message the console
+            return;
+        }
+        res.sendStatus(200);
+        console.log("Transaction updated successfully!");
+    });
+});
+
+// Route for updating a transactionCar
+app.put('/transactionCars/:id', function(req, res) {                   //  uses /transactionCars/:id to directly update the transactionCar instead of going through updateTransactionCar
+    let transactionCarID = req.params.id;                                      // retrieves the id from the request url and makes it transactionCarID
+    let { Car, Price } = req.body;            // assigns the data from the input into each variable
+
+    // query to update a transactionCar in transactionCars by transactionCarID using ? as placeholder
+    const updateTransactionCarQuery =                                      
+       `UPDATE TransactionCars
+        SET carID = ?, salePrice = ?
+        WHERE transactionCarID = ?
+    `;
+
+    //submit the update query
+    db.pool.query(updateTransactionCarQuery, [Car, Price, transactionCarID], function(error, results, fields) {
+        if (error) {
+            console.error("Error updating transaction detail:", error);    //if there is an error message the console
+            return;
+        }
+        res.sendStatus(200);
+        console.log("TransactionCar updated successfully!");
+    });
+});
 
 
 /*

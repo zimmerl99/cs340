@@ -1,0 +1,49 @@
+<html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/updateLocation.js"></script> 
+    </head>
+    
+    <body>
+        <header>
+            <h1>Locations</h1>
+        </header>
+    
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main id="update" style="display: block">
+            <form method="POST" id="updateLocation">
+                <legend><strong>Update Locations</strong></legend>
+                <fieldset class="fields">
+                    <label> <strong>Updating:</strong> </label> 
+                    <select name="input-location" id="input-location-ajax">           {{! handlebars dynamically filled dropdown for selecting which Location to edit }}
+                        <option value="">Select a Location</option>
+                        {{#each data}}
+                        <option value="{{this.locationID}}">{{this.locationName}}</option>    {{! shows name in the dropdown }}
+                        {{/each}}
+                    </select>
+                    <br>
+                    <label> Location Name: </label>        {{! value for each input is put into the handlebars variable}}
+                    <input type="text" id="locationName" name="Name" value="{{this.locationName}}" required>
+                </fieldset>
+                <br>
+                <button type="submit" class="delete-btn" >Update Location</button>       {{! onClick submits the POST form in which updateLocation.js takes over }}
+                <a href="/locations">Cancel</a>                                          {{! reroutes back to Locations.hbs }}
+            </form>
+
+        </main>
+    </body>
+</html>

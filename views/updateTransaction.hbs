@@ -1,0 +1,73 @@
+<html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/updateTransaction.js"></script> 
+    </head>
+    
+    <body>
+        <header>
+            <h1>Transactions</h1>
+        </header>
+    
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main id="update" style="display: block">
+            <form method="POST" id="updateTransaction">
+                <legend><strong>Update Transactions</strong></legend>
+                <fieldset class="fields">
+                    <label> <strong>Updating:</strong> </label> 
+                    <select name="input-transaction" id="input-transaction-ajax">           {{! handlebars dynamically filled dropdown for selecting which Transaction to edit }}
+                        <option value="">Select a Transaction</option>
+                        {{#each transactions}}
+                        <option value="{{this.salesID}}">{{this.transactionDate}} {{this.customerName}}</option>     {{! displays the date and customer of each Transaction }}
+                        {{/each}}
+                    </select>
+                    <br>
+                    <label> Date: </label> 
+                    <input type="date" name="Date" id="input-Date" placeholder="Enter Here...">
+                    <br>
+                    <label> Customer: </label> 
+                    <select name="input-Customer" id="input-Customer-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                        <option value="">Select a Customer</option>
+                        {{#each customers}}
+                        <option value="{{this.customerID}}">{{this.customerName}}</option>     {{! displays the name of customer}}
+                        {{/each}}
+                    </select>
+                    <br>
+                    <label> To: </label> 
+                    <select name="input-To" id="input-To-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                        <option value="">Select a Location</option>
+                        {{#each locations}}
+                        <option value="{{this.locationID}}">{{this.locationName}}</option>     {{! displays the name of location}}
+                        {{/each}}
+                    </select>
+                    <br>
+                    <label> From: </label> 
+                    <select name="input-From" id="input-From-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                        <option value="">Select a Location</option>
+                        {{#each locations}}
+                        <option value="{{this.locationID}}">{{this.locationName}}</option>     {{! displays the name of location}}
+                        {{/each}}
+                    </select>
+                </fieldset>
+                <br>
+                <button type="submit" class="delete-btn" >Update Transaction</button>       {{! onClick submits the POST form in which updateTransaction.js takes over }}
+                <a href="/transactions">Cancel</a>                                          {{! reroutes back to Transaction.hbs }}
+            </form>
+
+        </main>
+    </body>
+</html>

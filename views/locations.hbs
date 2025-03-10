@@ -33,7 +33,7 @@
                 <tbody>
                     {{#each data}}
                     <tr data-value={{this.locationID}}>
-                        <td><button class="update_button">Edit</button></td>
+                        <td><button onclick="window.location.href='/updateLocation'">Edit</button></td> {{! edit button routes to updateLocations.hbs}}
                         <td><button onclick="window.location.href='/deleteLocation'">Delete</button></td> {{! delete button routes to deleteLocation.hbs }}
                         <td>{{this.locationName}}</td>
                     </tr>

@@ -1,0 +1,57 @@
+<html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/updateTransactionCar.js"></script> 
+    </head>
+    
+    <body>
+        <header>
+            <h1>Transactions Details</h1>
+        </header>
+    
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main id="update" style="display: block">
+            <form method="POST" id="updateTransactionCar">
+                <legend><strong>Update Transaction Details</strong></legend>
+                <fieldset class="fields">
+                    <label> <strong>Updating:</strong> </label> 
+                    <select name="input-transactionCar" id="input-transactionCar-ajax">           {{! handlebars dynamically filled dropdown for selecting which TransactionCar to edit }}
+                        <option value="">Select a Transaction</option>
+                        {{#each transactions}}
+                        <option value="{{this.transactionCarID}}">{{this.salesID}} {{this.make}} {{this.model}}</option>     {{! displays the salesID and Car of each TransactionCar }}
+                        {{/each}}
+                    </select>
+                    <br>
+                    <label> Switch Car: </label> 
+                    <select name="input-car" id="input-car-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                        <option value="">Select a Car</option>
+                        {{#each cars}}
+                        <option value="{{this.carID}}">{{this.make}} {{this.model}}</option>     {{! displays the name of car}}
+                        {{/each}}
+                    </select>
+                    <label> Sale Price: </label> 
+                    <input type="salePrice" name="Date" id="input-salePrice" placeholder="Enter Here...">
+                    <br>
+                </fieldset>
+                <br>
+                <button type="submit" class="delete-btn" >Update Transaction Detail</button>       {{! onClick submits the POST form in which updateTransactionCar.js takes over }}
+                <a href="/transactionCars">Cancel</a>                                          {{! reroutes back to TransactionCars.hbs }}
+            </form>
+
+        </main>
+    </body>
+</html>
