@@ -1,0 +1,46 @@
+
+
+<html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rare Car Imports</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/deleteTransactionCar.js"></script> 
+    </head>
+    
+    <body>
+        <header>
+            <h1>Transaction Details</h1>
+        </header>
+    
+        <nav>
+            <a href="/">Home</a>
+            <a href="/diagram">Schema Diagram</a>
+            <a href="/cars">Cars</a>
+            <a href="/customers">Customers</a>
+            <a href="/locations">Locations</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transactionCars">Transactions Details</a>
+        </nav>
+        <main id="delete" style="display: block">
+            <legend><strong>Delete Transaction Detail</strong></legend>
+            <fieldset class="fields">
+                <p style="background-color: #CD212A;"><strong>HOLD UP!!! Are you sure you want to delete this Transaction Detail?</strong></p>
+                <label> <strong>Transaction Name</strong> </label> 
+                <select name="input-transactionCar" id="input-transactionCar-ajax">     {{! handlebars dropdown that is dynamically filled with data }}
+                    <option value="">Select a Transaction</option>
+                    {{#each data}}
+                    <option value="{{this.transactionCarID}}">{{this.salesID}} {{this.make}} {{this.model}}</option>     {{! displays the salesID and Make and Model of each TransactionCar }}
+                    {{/each}}
+                    </select>
+            </fieldset>
+            <br>
+            <button type="button" class="delete-btn" onclick="deleteTransactionCar()">Delete</button>    {{! onClick it calls the deleteTransactionCar() js function in deleteTransactionCar.js }}
+            <a onclick="" href="/transactionCars">Cancel</a>                                             {{! onClick it goes back to transactionCars.hbs }}
+        </main>
+    </body>
+</html>

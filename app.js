@@ -78,6 +78,17 @@ app.get('/deleteTransaction', (req, res) => {
     })
 });
 
+app.get('/deleteTransactionCar', (req, res) => {
+    //query for the dropdown of deleteTransactionCar.hbs
+    let dropdown_query1 = `SELECT TransactionCars.salesID, TransactionCars.transactionCarID, Cars.carID, Cars.make, Cars.model FROM TransactionCars
+                           JOIN Cars on TransactionCars.carID = Cars.carID`;
+
+    db.pool.query(dropdown_query1, function(error, rows, fields){   
+        
+        return res.render('deleteTransactionCar', {data: rows});           //renders the hbs page and gives it the sql data
+    })
+});
+
 app.get('/updateCar', (req, res) => {
     // query for filling in info for updateCar.hbs
     let info_query1 = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
@@ -273,14 +284,9 @@ app.post('/add-transactionCar-form', function(req, res) {
        `INSERT INTO TransactionCars (salesID, carID, salePrice)
         VALUES (?, ?, ?)`;           // ? are placeholders for program security
 
-    console.log("Executing query:", post_transaction_car_query1);
-    console.log("Query parameters:", [data['input-salesID'], data['input-car'], data['input-salePrice']]);
-
     // subit the query
     db.pool.query(post_transaction_car_query1, [data['input-salesID'], data['input-car'], data['input-salePrice']], function(error, rows, fields) {
         if (error) {
-            console.error('Error executing query:', error);
-            console.error('Full error object:', JSON.stringify(error, null, 2)); // Log the full error object
             res.status(500).send('Internal Server Error');
             return;
         }
@@ -384,6 +390,30 @@ app.delete('/delete-transaction-ajax/', (req, res) => {
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
         db.pool.query(deleteQuery, [transactionID], (error, results) => {
+            console.log("Delete successful");
+            db.pool.query(enableFKQuery, (error) => {
+                res.json({ success: true });
+            });
+        });
+    });
+});
+
+app.delete('/delete-transactionCar-ajax/', (req, res) => {
+
+    const transactionCarID = req.body.id;                                  // assigns the data from deleteTransactionCar (being the id of the deleted transactionCar) into the request body
+
+    // disable foreign key checks
+    let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
+    
+    // query to delete a transactionCar by its ID
+    let deleteQuery = `DELETE FROM TransactionCars WHERE transactionCarID = ?;`;
+
+    // enable foreign key checks
+    let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
+
+    // run the triple query
+    db.pool.query(disableFKQuery, (error) => {
+        db.pool.query(deleteQuery, [transactionCarID], (error, results) => {
             console.log("Delete successful");
             db.pool.query(enableFKQuery, (error) => {
                 res.json({ success: true });

@@ -38,7 +38,7 @@
                     {{#each data}}
                     <tr data-value={{this.transactionCarID}}>
                         <td><button class="update_button">Edit</button></td>
-                        <td><button class="delete_button">Delete</button></td>
+                        <td><button onclick="window.location.href='/deleteTransactionCar'">Delete</button></td> {{! delete button routes to deleteTransactionCar.hbs }}
                         <td>{{this.salesID}}</td>
                         <td>{{this.make}}</td>
                         <td>{{this.model}}</td>

@@ -1,4 +1,4 @@
-/*# Citation for the following function: deleteCar
+/*# Citation for the following function: deleteTransaction
 2 # Date: 2/25/2025
 3 # Adapted from nodejs-starter-app by CS 340 Instructional Staff
 4 # Used their delete_person.js file and adpated it to fit the deleteTransaction feature

@@ -1,7 +1,7 @@
-/*# Citation for the following function: deleteCar, deleteRow
+/*# Citation for the following function: deleteCustomer
 2 # Date: 2/25/2025
 3 # Adapted from nodejs-starter-app by CS 340 Instructional Staff
-4 # Used their delete_person.js file and adpated it to fit the deleteCar feature
+4 # Used their delete_person.js file and adpated it to fit the deleteCustomer feature
 5 # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
 */
 
