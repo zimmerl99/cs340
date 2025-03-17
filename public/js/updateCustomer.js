@@ -18,16 +18,16 @@ function updateCustomer(event) {
     }
 
     $.ajax({
-        url: `/customers/${customerID}`,                                          // ensures the route based off customerID for app.js PUT route
+        url: `/customers/${customerID}`,                             // ensures the route based off customerID for app.js PUT route
         type: 'PUT',
         data: JSON.stringify(updatedCustomer),   
         contentType: 'application/json; charset=utf-8',
         success: function(response) {
-            window.location.href = '/customers';                             // when successful, reroute backt to customers.hbs
+            window.location.href = '/customers';                     // when successful, reroute backt to customers.hbs
         },
     });
 }
 
 $(document).ready(function () {                     // ensures the function is only run after everything is loaded 
-    $('#updateCustomer').submit(updateCustomer);              // binds the PUT form in updateCustomer.hbs to the updateCustomer() function
+    $('#updateCustomer').submit(updateCustomer);    // binds the PUT form in updateCustomer.hbs to the updateCustomer() function
 });                                                 // so that when it is submitted it runs the function

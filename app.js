@@ -1,5 +1,13 @@
+/*# Citation for the following functions: SETUP and LISTENER
+2 # Date: 2/20/2025
+3 # Adapted from nodejs-starter-app by CS 340 Instructional Staff
+4 # Used their instruction and skeleton code to implement the listener and setup portions
+5 # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+*/
+
+
 /*
-    SETUP
+    SETUP - all the required connetions to make node.js and handlebars function together
 */
 
 // Express setup
@@ -16,12 +24,12 @@ var db = require('./database/db-connector')
 
 //HandleBars setup
 const { engine } = require('express-handlebars');
-var exphbs = require('express-handlebars'); // Import express-handlebars
-app.engine('.hbs', engine({extname: ".hbs"})); // Create an instance of the handlebars engine to process templates
-app.set('view engine', '.hbs'); // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
+var exphbs = require('express-handlebars'); 
+app.engine('.hbs', engine({extname: ".hbs"})); 
+app.set('view engine', '.hbs');
 
 /*
-    ROUTES
+    ROUTES - all the routes for each CRUD functionality of the hbs pages
 */
 
 /**************************************************************************
@@ -37,11 +45,12 @@ app.get('/', function(req, res) {
     return res.render('index'); // render index.hbs as /
 });
 
+// get routes to access each delete page
 app.get('/deleteCar', (req, res) => {
     //query for the dropdown of deleteCar.hbs
-    let dropdown_query1 = "SELECT carID, make AS Make, model AS Model FROM Cars";
+    let dropdownCarQuery = "SELECT carID, make AS Make, model AS Model FROM Cars";
 
-    db.pool.query(dropdown_query1, function(error, rows, fields){   
+    db.pool.query(dropdownCarQuery, function(error, rows, fields){   // call the query
         
         return res.render('deleteCar', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -49,9 +58,9 @@ app.get('/deleteCar', (req, res) => {
 
 app.get('/deleteLocation', (req, res) => {
     //query for the dropdown of deleteLocation.hbs
-    let dropdown_query2 = "SELECT locationID, locationName AS location FROM Locations";
+    let dropdownLocationQuery = "SELECT locationID, locationName AS location FROM Locations";
 
-    db.pool.query(dropdown_query2, function(error, rows, fields){   
+    db.pool.query(dropdownLocationQuery, function(error, rows, fields){   
 
         return res.render('deleteLocation', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -59,9 +68,9 @@ app.get('/deleteLocation', (req, res) => {
 
 app.get('/deleteCustomer', (req, res) => {
     //query for the dropdown of deleteCustomer.hbs
-    let dropdown_query1 = "SELECT customerID, name FROM Customers";
+    let dropdownCustomerQuery = "SELECT customerID, name FROM Customers";
 
-    db.pool.query(dropdown_query1, function(error, rows, fields){   
+    db.pool.query(dropdownCustomerQuery, function(error, rows, fields){   
         
         return res.render('deleteCustomer', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -69,10 +78,10 @@ app.get('/deleteCustomer', (req, res) => {
 
 app.get('/deleteTransaction', (req, res) => {
     //query for the dropdown of deleteTransaction.hbs
-    let dropdown_query1 = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
+    let dropdownTransactionQuery = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
                            JOIN Customers ON Transactions.customerID = Customers.customerID`;
 
-    db.pool.query(dropdown_query1, function(error, rows, fields){   
+    db.pool.query(dropdownTransactionQuery, function(error, rows, fields){   
         
         return res.render('deleteTransaction', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -80,21 +89,21 @@ app.get('/deleteTransaction', (req, res) => {
 
 app.get('/deleteTransactionCar', (req, res) => {
     //query for the dropdown of deleteTransactionCar.hbs
-    let dropdown_query1 = `SELECT TransactionCars.salesID, TransactionCars.transactionCarID, Cars.carID, Cars.make, Cars.model FROM TransactionCars
-                           JOIN Cars on TransactionCars.carID = Cars.carID`;
+    let dropdownTransactionCarQuery = `SELECT TransactionCars.salesID, TransactionCars.transactionCarID, Cars.carID, Cars.make, Cars.model FROM TransactionCars
+                                       JOIN Cars on TransactionCars.carID = Cars.carID`;
 
-    db.pool.query(dropdown_query1, function(error, rows, fields){   
+    db.pool.query(dropdownTransactionCarQuery, function(error, rows, fields){   
         
         return res.render('deleteTransactionCar', {data: rows});           //renders the hbs page and gives it the sql data
     })
 });
 
+// get routes to access each update page
 app.get('/updateCar', (req, res) => {
     // query for filling in info for updateCar.hbs
-    let info_query1 = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
+    let infoCarsQuery = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
 
-    db.pool.query(info_query1, function(error, rows, fields){   
-
+    db.pool.query(infoCarsQuery, function(error, rows, fields){   
 
         return res.render('updateCar', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -102,10 +111,9 @@ app.get('/updateCar', (req, res) => {
 
 app.get('/updateCustomer', (req, res) => {
     // query for filling in info for updateCustomer.hbs
-    let info_query1 = "SELECT customerID, name, contactNumber FROM Customers";
+    let infoCustomersQuery = "SELECT customerID, name, contactNumber FROM Customers";
 
-    db.pool.query(info_query1, function(error, rows, fields){   
-
+    db.pool.query(infoCustomersQuery, function(error, rows, fields){   
 
         return res.render('updateCustomer', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -113,9 +121,9 @@ app.get('/updateCustomer', (req, res) => {
 
 app.get('/updateLocation', (req, res) => {
     // query for filling in info for updateLocation.hbs
-    let info_query1 = "SELECT locationID, locationName FROM Locations";
+    let infoLocationsQuery = "SELECT locationID, locationName FROM Locations";
 
-    db.pool.query(info_query1, function(error, rows, fields){   
+    db.pool.query(infoLocationsQuery, function(error, rows, fields){   
 
         return res.render('updateLocation', {data: rows});           //renders the hbs page and gives it the sql data
     })
@@ -123,22 +131,22 @@ app.get('/updateLocation', (req, res) => {
 
 app.get('/updateTransaction', (req, res) => {
     // query for filling in info for updateTransaction.hbs
-    let info_query1 = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
+    let infoTransactionsQuery = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
                        JOIN Customers ON Transactions.customerID = Customers.customerID`;
 
     // query to get all customers for dropdown
-    let info_query2 = `SELECT customerID, name AS customerName FROM Customers`;
+    let dropdownCustomersQuery = `SELECT customerID, name AS customerName FROM Customers`;
 
     // query to get all locations for dropdown
-    let info_query3 = `SELECT locationID, locationName FROM Locations`;
+    let dropdownLocationsQuery = `SELECT locationID, locationName FROM Locations`;
 
-    // run the get query
-    db.pool.query(info_query1, function(error, transactions) {
+    // run the triple query
+    db.pool.query(infoTransactionsQuery, function(error, transactions) {
 
-        db.pool.query(info_query2, function(error, customers) {
+        db.pool.query(dropdownCustomersQuery, function(error, customers) {
     
-            db.pool.query(info_query3, function(error, locations) {
-                //renders the hbs page and gives it the sql data
+            db.pool.query(dropdownLocationsQuery, function(error, locations) {
+                //renders the hbs page and gives it the sql data and denotes what each handlebars dataset is titled
                 res.render('updateTransaction', {transactions: transactions, customers: customers, locations: locations});
             });
         });
@@ -147,85 +155,78 @@ app.get('/updateTransaction', (req, res) => {
 
 app.get('/updateTransactionCar', (req, res) => {
     // query for filling in info for updateTransactionCar.hbs
-    let info_query1 = `SELECT TransactionCars.salesID, TransactionCars.transactionCarID, Cars.carID, Cars.make, Cars.model FROM TransactionCars
+    let infoTransactionCarsQuery = `SELECT TransactionCars.salesID, TransactionCars.transactionCarID, Cars.carID, Cars.make, Cars.model FROM TransactionCars
                        JOIN Cars on TransactionCars.carID = Cars.carID`;
 
     // query to get all cars for dropdown
-    let info_query2 = `SELECT carID, make, model from Cars`;
+    let dropdownCarsQuery = `SELECT carID, make, model from Cars`;
 
     // run the get query
-    db.pool.query(info_query1, function(error, transactions) {
+    db.pool.query(infoTransactionCarsQuery, function(error, transactions) {
 
-        db.pool.query(info_query2, function(error, cars) {
-            //renders the hbs page and gives it the sql data
+        db.pool.query(dropdownCarsQuery, function(error, cars) {
+            //renders the hbs page and gives it the sql data and denotes what each handlebars dataset is titled
             res.render('updateTransactionCar', {transactions: transactions, cars: cars});
         });
 
     });
 }); 
 
-app.get('/cars', function(req, res)
-{
-    // Cars Queries
-    // get all cars make, model, modelYear, and carValue for the cars.html list
-    let cars_query1 = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
+// get routes for each main hbs page
+app.get('/cars', function(req, res) {
+    // get all cars make, model, modelYear, and carValue for the cars.hbs list
+    let getCarsQuery = "SELECT carID, make AS Make, model AS Model, modelYear AS Year, carValue AS Value FROM Cars";
 
     // run the get query
-    db.pool.query(cars_query1, function(error, rows, fields){   
-        let cars = rows;                                        //each car is a row in the table
+    db.pool.query(getCarsQuery, function(error, cars, fields){   
+
         return res.render('cars', {data: cars});                //renders the hbs page and gives it the sql data
     })
 });
 
-app.get('/customers', function(req, res)
-{
-    // Customers Queries
-    // get name and contactNumber from Customers for cutomers.html list
-    let customers_query1 = "SELECT customerID, name, contactNumber FROM Customers";
+app.get('/customers', function(req, res) {
+    // get name and contactNumber from Customers for cutomers.hbs list
+    let getCustomersQuery = "SELECT customerID, name, contactNumber FROM Customers";
     
     // run the get query
-    db.pool.query(customers_query1, function(error, rows, fields){
-        let customers = rows;                                                //each transactionCar is a row in the table
+    db.pool.query(getCustomersQuery, function(error, customers, fields){
+
         return res.render('customers', {data: customers});                //renders the hbs page and gives it the sql data
     })
 });                                                    
 
-app.get('/locations', function(req, res)
-{
-    // Locations Queries
-    // get locationName from Locations for locations.html list
-    let locations_query1 = "SELECT locationID, locationName FROM Locations";
+app.get('/locations', function(req, res) {
+    // get locationName from Locations for locations.hbs list
+    let getLocationsQuery = "SELECT locationID, locationName FROM Locations";
 
     // run the get query
-    db.pool.query(locations_query1, function(error, rows, fields){
-        let locations = rows;                                                //each transactionCar is a row in the table
+    db.pool.query(getLocationsQuery, function(error, locations, fields){
+
         return res.render('locations', {data: locations});                //renders the hbs page and gives it the sql data
     })
 });       
 
-app.get('/transactions', function(req, res)
-{
-    // transactions Queries
-    // get locationName from Locations for locations.html list
-    let transactions_query1 = 
+app.get('/transactions', function(req, res) {
+    // get transactionDate, name, toLocation, fromLocation, from the db for the table
+    let getTransactionsQuery = 
        `SELECT Transactions.salesID AS salesID, Transactions.transactionDate AS transactionDate, Customers.name AS Name, LocationsFrom.locationName AS fromLocation, LocationsTo.locationName AS toLocation FROM Transactions
         JOIN Customers ON Transactions.customerID = Customers.customerID
         JOIN Locations AS LocationsFrom ON Transactions.fromLocation = LocationsFrom.locationID
         JOIN Locations AS LocationsTo ON Transactions.toLocation = LocationsTo.locationID`;
 
-    // query to get all customers for dropdown
-    let transactions_query2 = `SELECT customerID, name AS customerName FROM Customers`;
+    // query to get all customers for add transaction dropdown
+    let getCustomersDropdownQuery = `SELECT customerID, name AS customerName FROM Customers`;
 
-    // query to get all locations for dropdown
-    let transactions_query3 = `SELECT locationID, locationName FROM Locations`;
+    // query to get all locations for add transaction dropdown
+    let getLocationsDropdownQuery = `SELECT locationID, locationName FROM Locations`;
 
-    // run the get query
-    db.pool.query(transactions_query1, function(error, transactions) {
+    // run the triple query
+    db.pool.query(getTransactionsQuery, function(error, transactions) {
 
-        db.pool.query(transactions_query2, function(error, customers) {
+        db.pool.query(getCustomersDropdownQuery, function(error, customers) {
     
-            db.pool.query(transactions_query3, function(error, locations) {
-                //renders the hbs page and gives it the sql data
+            db.pool.query(getLocationsDropdownQuery, function(error, locations) {
+                //renders the hbs page and gives it the sql data and denotes what each hbs dataset is titled
                 res.render('transactions', {transactions: transactions, customers: customers, locations: locations});
             });
         });
@@ -233,29 +234,27 @@ app.get('/transactions', function(req, res)
 });  
 
 
-app.get('/transactionCars', function(req, res)
-{
-    // transactionCars Queries
-    // get locationName from Locations for locations.hbl list
-    let transactionCars_query1 = 
+app.get('/transactionCars', function(req, res) {
+    // get salesID, make, model, modelYearl, and salePrice from the db for the table
+    let getTransactionCarsQuery = 
        `SELECT TransactionCars.transactionCarID, TransactionCars.salesID, Cars.make, Cars.model, Cars.modelYear, TransactionCars.salePrice FROM TransactionCars
         JOIN Cars ON TransactionCars.carID = Cars.carID
         ORDER BY TransactionCars.salesID`;
 
-    // query to get all transactions for dropdown
-    let transactionCars_query2 = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
+    // query to get all transactions for add transactionCar dropdown
+    let getTransactionsDropdownQuery = `SELECT Transactions.salesID, Transactions.transactionDate, Customers.customerID, Customers.name AS customerName FROM Transactions
                                   JOIN Customers ON Transactions.customerID = Customers.customerID`;
 
-    // query to get all cars for dropdown
-    let transactionCars_query3 = `SELECT Cars.carID, Cars.make AS Make, Cars.model AS Model FROM Cars`;
+    // query to get all cars for add transactionCar dropdown
+    let getCarsDropdownQuery = `SELECT Cars.carID, Cars.make AS Make, Cars.model AS Model FROM Cars`;
 
     // run the get query
-    db.pool.query(transactionCars_query1, function(error, transactionCars) {
+    db.pool.query(getTransactionCarsQuery, function(error, transactionCars) {
 
-        db.pool.query(transactionCars_query2, function(error, transactions) {
+        db.pool.query(getTransactionsDropdownQuery, function(error, transactions) {
     
-            db.pool.query(transactionCars_query3, function(error, cars) {
-                //renders the hbs page and gives it the sql data
+            db.pool.query(getCarsDropdownQuery, function(error, cars) {
+                //renders the hbs page and gives it the sql data and denotes what each hbs dataset is titled
                 res.render('transactionCars', {data: transactionCars, transactions: transactions, cars: cars});
             });
         });
@@ -278,12 +277,12 @@ app.post('/add-car-form', function(req, res) {
     }
 
     // insert a car into cars table in the database
-    let post_car_query1 = 
+    let addCarQuery = 
        `INSERT INTO Cars (make, model, modelYear, carValue) 
         VALUES (?, ?, ?, ?)`;           // ? are placeholders for program security
 
-    // subit the query
-    db.pool.query(post_car_query1, [data['input-Make'], data['input-Model'], data['input-Year'], Value], function(error, rows, fields) {
+    // submit the query - ['input-Make'] format is for program security and handles poor input
+    db.pool.query(addCarQuery, [data['input-Make'], data['input-Model'], data['input-Year'], Value], function(error, rows, fields) {
 
         res.redirect('/cars'); // redirect back to cars page
     });
@@ -294,14 +293,14 @@ app.post('/add-customer-form', function(req, res) {
     let data = req.body;                                    // assigns the data from the inputs into the request body
 
     // insert a customer into Customers table
-    let post_customer_query1 = 
+    let addCustomerQuery = 
         `INSERT INTO Customers (name, contactNumber)
         VALUES (?, ?)`;           // ? are placeholders for program security
 
-    // subit the query
-    db.pool.query(post_customer_query1, [data['input-Name'], data['input-ContactNumber']], function(error, rows, fields) {
+    // submit the query - ['input-Name'] format is for program security and handles poor input
+    db.pool.query(addCustomerQuery, [data['input-Name'], data['input-ContactNumber']], function(error, rows, fields) {
 
-        res.redirect('/customers'); // redirect back to cars page
+        res.redirect('/customers'); // redirect back to customers page
     });
 
 })
@@ -310,14 +309,14 @@ app.post('/add-location-form', function(req, res) {
     let data = req.body;                                    // assigns the data from the inputs into the request body
 
     // insert a location into Locations table
-    let post_location_query1 = 
+    let addLocationQuery = 
         `INSERT INTO Locations (locationName)
         VALUES (?)`;           // ? are placeholders for program security
 
-    // subit the query
-    db.pool.query(post_location_query1, [data['input-Location']], function(error, rows, fields) {
+    // submit the query - ['input-Location'] format is for program security and handles poor input
+    db.pool.query(addLocationQuery, [data['input-Location']], function(error, rows, fields) {
 
-        res.redirect('/locations'); // redirect back to cars page
+        res.redirect('/locations'); // redirect back to locations page
     });
 
 })
@@ -326,14 +325,14 @@ app.post('/add-transaction-form', function(req, res) {
     let data = req.body;                                    // assigns the data from the inputs into the request body
 
     // insert a car into cars table in the database
-    let post_transaction_query1 = 
+    let addTransactionQuery = 
        `INSERT INTO Transactions (transactionDate, customerID, toLocation, fromLocation)
         VALUES (?, ?, ?, ?)`;           // ? are placeholders for program security
 
-    // subit the query
-    db.pool.query(post_transaction_query1, [data['input-Date'], data['input-Customer'], data['input-To'], data['input-From']], function(error, rows, fields) {
+    // submit the query - ['input-Date'] format is for program security and handles poor input
+    db.pool.query(addTransactionQuery, [data['input-Date'], data['input-Customer'], data['input-To'], data['input-From']], function(error, rows, fields) {
 
-        res.redirect('/transactions'); // redirect back to cars page
+        res.redirect('/transactions'); // redirect back to transactions page
     });
 
 })
@@ -341,20 +340,15 @@ app.post('/add-transaction-form', function(req, res) {
 app.post('/add-transactionCar-form', function(req, res) {
     let data = req.body;                                    // assigns the data from the inputs into the request body
 
-    console.log("Incoming form data:", data);
-
     // insert a car into cars table in the database
-    let post_transaction_car_query1 = 
+    let addTransactionCarQuery = 
        `INSERT INTO TransactionCars (salesID, carID, salePrice)
         VALUES (?, ?, ?)`;           // ? are placeholders for program security
 
-    // subit the query
-    db.pool.query(post_transaction_car_query1, [data['input-salesID'], data['input-car'], data['input-salePrice']], function(error, rows, fields) {
-        if (error) {
-            res.status(500).send('Internal Server Error');
-            return;
-        }
-        res.redirect('/transactionCars'); // redirect back to cars page
+    // subit the query - ['input-salesID'] format is for program security and handles poor input
+    db.pool.query(addTransactionCarQuery, [data['input-salesID'], data['input-car'], data['input-salePrice']], function(error, rows, fields) {
+
+        res.redirect('/transactionCars'); // redirect back to transactionCars page
     });
 
 })
@@ -367,23 +361,24 @@ app.post('/add-transactionCar-form', function(req, res) {
 
 app.delete('/delete-car-ajax/', (req, res) => {
 
-    const carID = req.body.id;                                  // assigns the data from deleteCar (being the id of the deleted car) into the request body
+    const carID = req.body.id;               // assigns the data from deleteCar (being the id of the deleted car) into the request body
 
     // disable foreign key checks
     let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
     
     // query to delete a car by its ID
-    let deleteQuery = `DELETE FROM Cars WHERE carID = ?;`;
+    let deleteCarQuery = `DELETE FROM Cars WHERE carID = ?;`;
 
     // enable foreign key checks
     let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
 
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
-        db.pool.query(deleteQuery, [carID], (error, results) => {
-            console.log("Delete successful");
+
+        db.pool.query(deleteCarQuery, [carID], (error, results) => {
+
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true});
+                res.json({ success: true});                     // message console that deletion was successful
             });
         });
     });
@@ -398,17 +393,18 @@ app.delete('/delete-location-ajax/', (req, res) => {
     let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
     
     // query to delete a location by its ID
-    let deleteQuery = `DELETE FROM Locations WHERE locationID = ?;`;
+    let deleteLocationQuery = `DELETE FROM Locations WHERE locationID = ?;`;
 
     // enable foreign key checks
     let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
 
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
-        db.pool.query(deleteQuery, [locationID], (error, results) => {
-            console.log("Delete successful");
+
+        db.pool.query(deleteLocationQuery, [locationID], (error, results) => {
+
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true });
+                res.json({ success: true });                     // message console that deletion was successful
             });
         });
     });
@@ -421,18 +417,19 @@ app.delete('/delete-customer-ajax/', (req, res) => {
     // disable foreign key checks
     let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
     
-    // query to delete a car by its ID
-    let deleteQuery = `DELETE FROM Customers WHERE customerID = ?;`;
+    // query to delete a customer by its ID
+    let deleteCustomerQuery = `DELETE FROM Customers WHERE customerID = ?;`;
 
     // enable foreign key checks
     let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
 
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
-        db.pool.query(deleteQuery, [customerID], (error, results) => {
-            console.log("Delete successful");
+
+        db.pool.query(deleteCustomerQuery, [customerID], (error, results) => {
+
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true});
+                res.json({ success: true});                     // message console that deletion was successful
             });
         });
     });
@@ -445,18 +442,19 @@ app.delete('/delete-transaction-ajax/', (req, res) => {
     // disable foreign key checks
     let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
     
-    // query to delete a car by its ID
-    let deleteQuery = `DELETE FROM Transactions WHERE salesID = ?;`;
+    // query to delete a transaction by its ID
+    let deleteTransactionQuery = `DELETE FROM Transactions WHERE salesID = ?;`;
 
     // enable foreign key checks
     let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
 
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
-        db.pool.query(deleteQuery, [transactionID], (error, results) => {
-            console.log("Delete successful");
+
+        db.pool.query(deleteTransactionQuery, [transactionID], (error, results) => {
+
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true });
+                res.json({ success: true });                     // message console that deletion was successful
             });
         });
     });
@@ -470,17 +468,18 @@ app.delete('/delete-transactionCar-ajax/', (req, res) => {
     let disableFKQuery = `SET FOREIGN_KEY_CHECKS=0;`;
     
     // query to delete a transactionCar by its ID
-    let deleteQuery = `DELETE FROM TransactionCars WHERE transactionCarID = ?;`;
+    let deleteTransactionCarQuery = `DELETE FROM TransactionCars WHERE transactionCarID = ?;`;
 
     // enable foreign key checks
     let enableFKQuery = `SET FOREIGN_KEY_CHECKS=1;`;
 
     // run the triple query
     db.pool.query(disableFKQuery, (error) => {
-        db.pool.query(deleteQuery, [transactionCarID], (error, results) => {
-            console.log("Delete successful");
+
+        db.pool.query(deleteTransactionCarQuery, [transactionCarID], (error, results) => {
+
             db.pool.query(enableFKQuery, (error) => {
-                res.json({ success: true });
+                res.json({ success: true });                     // message console that deletion was successful
             });
         });
     });
@@ -491,8 +490,7 @@ app.delete('/delete-transactionCar-ajax/', (req, res) => {
     PUT
 **************************************************************************/
 
-// Route for updating a car
-app.put('/cars/:id', function(req, res) {                   //  uses /cars/:id to directly update the car instead of going through updateCar
+app.put('/cars/:id', function(req, res) {                   // uses /cars/:id to directly update the car instead of going through updateCar
     let carID = req.params.id;                              // retrieves the id from the request url and makes it carID
     let { Make, Model, ModelYear, CarValue } = req.body;    // assigns the data from the input into each variable
 
@@ -506,109 +504,80 @@ app.put('/cars/:id', function(req, res) {                   //  uses /cars/:id t
     const updateCarQuery =                                      
        `UPDATE Cars 
         SET make = ?, model = ?, modelYear = ?, carValue = ?
-        WHERE carID = ?
-    `;
+        WHERE carID = ?`;
 
     //submit the update query
     db.pool.query(updateCarQuery, [Make, Model, ModelYear, CarValue, carID], function(error, results, fields) {
-        if (error) {
-            console.error("Error updating car:", error);    //if there is an error message the console
-            return;
-        }
+        console.log("Car updated successfully!");            // message console that update was successful
         res.sendStatus(200);
-        console.log("Car updated successfully!");
     });
 });
 
-// Route for updating a customer
-app.put('/customers/:id', function(req, res) {                  //  uses /customers/:id to directly update the customer instead of going through updateCustomer
-    let customerID = req.params.id;                                  // retrieves the id from the request url and makes it customerID
-    let { Name, ContactNumber} = req.body;        // assigns the data from the input into each variable
+app.put('/customers/:id', function(req, res) {                  // uses /customers/:id to directly update the customer instead of going through updateCustomer
+    let customerID = req.params.id;                             // retrieves the id from the request url and makes it customerID
+    let { Name, ContactNumber} = req.body;                      // assigns the data from the input into each variable
 
     // query to update a customer in Customers by customerID using ? as placeholder
     const updateCustomerQuery =                                      
        `UPDATE Customers 
         SET name = ?, contactNumber = ?
-        WHERE customerID = ?
-    `;
+        WHERE customerID = ?`;
 
     //submit the update query
     db.pool.query(updateCustomerQuery, [Name, ContactNumber, customerID], function(error, results, fields) {
-        if (error) {
-            console.error("Error updating customer:", error);    //if there is an error message the console
-            return;
-        }
+        console.log("Customer updated successfully!");           // message console that update was successful
         res.sendStatus(200);
-        console.log("Customer updated successfully!");
     });
 });
 
-// Route for updating a Location
-app.put('/locations/:id', function(req, res) {                   //  uses /locations/:id to directly update the car instead of going through updateLocation
-    let locationID = req.params.id;                              // retrieves the id from the request url and makes it LocationID
+app.put('/locations/:id', function(req, res) {                  // uses /locations/:id to directly update the location instead of going through updateLocation
+    let locationID = req.params.id;                             // retrieves the id from the request url and makes it LocationID
     let { Name } = req.body;                                    // assigns the data from the input into each variable
 
     // query to update a location in Locations by locationID using ? as placeholder
     const updateLocationQuery =                                      
        `UPDATE Locations 
         SET locationName = ?
-        WHERE locationID = ?
-    `;
+        WHERE locationID = ?`;
 
     //submit the update query
     db.pool.query(updateLocationQuery, [Name, locationID], function(error, results, fields) {
-        if (error) {
-            console.error("Error updating Location:", error);    //if there is an error message the console
-            return;
-        }
+        console.log("Location updated successfully!");          // message console that update was successful
         res.sendStatus(200);
-        console.log("Location updated successfully!");
     });
 });
 
-// Route for updating a transaction
-app.put('/transactions/:id', function(req, res) {                   //  uses /transactions/:id to directly update the transaction instead of going through updateTransaction
-    let salesID = req.params.id;                                      // retrieves the id from the request url and makes it salesID
-    let { Date, Name, To, From } = req.body;            // assigns the data from the input into each variable
+app.put('/transactions/:id', function(req, res) {                   // uses /transactions/:id to directly update the transaction instead of going through updateTransaction
+    let salesID = req.params.id;                                    // retrieves the id from the request url and makes it salesID
+    let { Date, Name, To, From } = req.body;                        // assigns the data from the input into each variable
 
     // query to update a transaction in transactions by salesID using ? as placeholder
     const updateTransactionQuery =                                      
        `UPDATE Transactions
         SET transactionDate = ?, customerID = ?, toLocation = ?, fromLocation = ?
-        WHERE salesID = ?
-    `;
+        WHERE salesID = ?`;
 
     //submit the update query
     db.pool.query(updateTransactionQuery, [Date, Name, To, From, salesID], function(error, results, fields) {
-        if (error) {
-            console.error("Error updating transaction:", error);    //if there is an error message the console
-            return;
-        }
+        console.log("Transaction updated successfully!");           // message console that update was successful
         res.sendStatus(200);
-        console.log("Transaction updated successfully!");
     });
 });
 
-// Route for updating a transactionCar
-app.put('/transactionCars/:id', function(req, res) {                   //  uses /transactionCars/:id to directly update the transactionCar instead of going through updateTransactionCar
-    let transactionCarID = req.params.id;                                      // retrieves the id from the request url and makes it transactionCarID
-    let { Car, Price } = req.body;            // assigns the data from the input into each variable
+app.put('/transactionCars/:id', function(req, res) {                //  uses /transactionCars/:id to directly update the transactionCar instead of going through updateTransactionCar
+    let transactionCarID = req.params.id;                           // retrieves the id from the request url and makes it transactionCarID
+    let { Car, Price } = req.body;                                  // assigns the data from the input into each variable
 
     // query to update a transactionCar in transactionCars by transactionCarID using ? as placeholder
     const updateTransactionCarQuery =                                      
        `UPDATE TransactionCars
         SET carID = ?, salePrice = ?
-        WHERE transactionCarID = ?
-    `;
+        WHERE transactionCarID = ?`;
 
     //submit the update query
     db.pool.query(updateTransactionCarQuery, [Car, Price, transactionCarID], function(error, results, fields) {
-        if (error) {
-            console.error("Error updating transaction detail:", error);    //if there is an error message the console
-            return;
-        }
+        console.log("TransactionCar updated successfully!");        // message console that update was successful
         res.sendStatus(200);
-        console.log("TransactionCar updated successfully!");
     });
 });
 

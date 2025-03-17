@@ -1,3 +1,15 @@
+<!-- 
+1 # Citation for the following files: locations.hbs
+2 # Date: 02/13/2025
+3 # Templated from bsg_HTML_UI
+4 # The main things used from the template was the functionality of the buttons, and the 
+#  table layout, with a little difference in functionality, however the skeleton is similar
+#  to the template. What is original is the design thought and process of creating the table 
+#  with a CSS file in mind to make styling easier for us. And the topic of ideas we have given
+#  the skeleton making the UI fit towards our project idea and topic.
+5 # Source : https://canvas.oregonstate.edu/courses/1987790/files/108859901/download?download_frd=1
+-->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,6 +39,7 @@
                     <tr>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>ID</th>
                         <th>Location Name</th>
                     </tr>
                 </thead>
@@ -35,6 +48,7 @@
                     <tr data-value={{this.locationID}}>
                         <td><button onclick="window.location.href='/updateLocation'">Edit</button></td> {{! edit button routes to updateLocations.hbs}}
                         <td><button onclick="window.location.href='/deleteLocation'">Delete</button></td> {{! delete button routes to deleteLocation.hbs }}
+                        <td>{{this.locationID}}</td>
                         <td>{{this.locationName}}</td>
                     </tr>
                     {{/each}}

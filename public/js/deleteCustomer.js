@@ -10,19 +10,17 @@ function deleteCustomer() {
   console.log(customerID);  // Debugging
 
   let link = '/delete-customer-ajax/';                 // link to deleteCustomer ajax function
-  let data = {                                    // puts the extracted customerID into a variable named within the function
+  let data = {                                         // puts the extracted customerID into a variable named within the function
     id: customerID 
   };
 
-  console.log("Sending data:", JSON.stringify(data));  // Debugging
-
-  $.ajax({
+  $.ajax({                                             // ajax specifications for what to do with the data
       url: link,
       type: 'DELETE',
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        window.location.href = "/customers";         // when successful reroutes back to customers.hbs
+        window.location.href = "/customers";           // when successful reroutes back to customers.hbs
       }
   });
 }

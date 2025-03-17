@@ -14,15 +14,13 @@ function deleteTransaction() {
     id: transactionID 
   };
 
-  console.log("Sending data:", JSON.stringify(data));  // Debugging
-
-  $.ajax({
+  $.ajax({                                                // ajax specifications for what to do with the data
       url: link,
       type: 'DELETE',
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        window.location.href = "/transactions";         // when successful reroutes back to transactions.hbs
+        window.location.href = "/transactions";           // when successful reroutes back to transactions.hbs
       }
   });
 }

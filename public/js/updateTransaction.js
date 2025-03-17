@@ -1,14 +1,14 @@
 function updateTransaction(event) {
-    event.preventDefault();                           // Prevent form from submitting normally
+    event.preventDefault();                                 // Prevent form from submitting normally
 
     salesID = $('#input-transaction-ajax').val();           // jQuery gets the salesID value from the input
     if (!salesID) {
-        alert("Please select a Transaction to update.");      // if no input, send an alert to select Transaction from the dropdown
+        alert("Please select a Transaction to update.");    // if no input, send an alert to select Transaction from the dropdown
         return;
     }
 
-    updatedTransaction = {                                    // creates an object to store attribute data
-        Date: $('#input-Date').val(),                    // jQuery fills in the data from the inputs
+    updatedTransaction = {                                  // creates an object to store attribute data
+        Date: $('#input-Date').val(),                       // jQuery fills in the data from the inputs
         Name: $('#input-Customer-ajax').val(),
         To: $('#input-To-ajax').val(),
         From: $('#input-From-ajax').val()
@@ -20,12 +20,12 @@ function updateTransaction(event) {
     }
 
     $.ajax({
-        url: `/transactions/${salesID}`,                                          // ensures the route based off salesID for app.js PUT route
+        url: `/transactions/${salesID}`,                                 // ensures the route based off salesID for app.js PUT route
         type: 'PUT',
         data: JSON.stringify(updatedTransaction),   
         contentType: 'application/json; charset=utf-8',
         success: function(response) {
-            window.location.href = '/transactions';                             // when successful, reroute backt to Transactions.hbs
+            window.location.href = '/transactions';                      // when successful, reroute backt to Transactions.hbs
         },
     });
 }

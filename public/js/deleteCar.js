@@ -1,4 +1,4 @@
-/*# Citation for the following function: deleteCar, deleteRow
+/*# Citation for the following function: deleteCar
 2 # Date: 2/25/2025
 3 # Adapted from nodejs-starter-app by CS 340 Instructional Staff
 4 # Used their delete_person.js file and adpated it to fit the deleteCar feature
@@ -14,15 +14,13 @@ function deleteCar() {
     id: carID 
   };
 
-  console.log("Sending data:", JSON.stringify(data));  // Debugging
-
-  $.ajax({
+  $.ajax({                                        // ajax specifications for what to do with the data
       url: link,
       type: 'DELETE',
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        window.location.href = "/cars";         // when successful reroutes back to cars.hbs
+        window.location.href = "/cars";           // when successful reroutes back to cars.hbs
       }
   });
 }

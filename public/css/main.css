@@ -1,3 +1,15 @@
+/*
+1 # Citation for the following files: main.css
+2 # Date: 02/13/2025
+3 # Templated from bsg_HTML_UI
+4 # The main things used from the template was the functionality of the buttons, and the 
+#  table layout, with a little difference in functionality, however the skeleton is similar
+#  to the template. What is original is the design thought and process of creating the table 
+#  with a CSS file in mind to make styling easier for us. And the topic of ideas we have given
+#  the skeleton making the UI fit towards our project idea and topic.
+5 # Source : https://canvas.oregonstate.edu/courses/1987790/files/108859901/download?download_frd=1
+*/
+
 :root {
     --FerrariRed:#CD212A;
     --FerrariYellow: #FFF200;
@@ -74,11 +86,11 @@ table {
     background-color: var(--FerrariRed);
     width: 100%;
     border-collapse: collapse;
-    border: 2px solid ; /* Add outer border */
+    border: 2px solid ;
 }
 th, td {
     color: var(--White);
-    border: 1px solid var(--Black); /* Add lines to cells */
+    border: 1px solid var(--Black);
     padding: 8px;
     text-align: left;
 }
@@ -140,12 +152,12 @@ footer {
 }
 .gallery { 
     display: flex;
-    flex-flow: row wrap;     /* Required for responsive layout. */
+    flex-flow: row wrap;
     margin:0; 
     padding:0;
 }
 
-.gallery figure {            /* Modify all of these values to improve your design. */
+.gallery figure {
     width: 800px;  
     background-color: var(--White);
     border:2px solid var(--Silver);
@@ -156,7 +168,7 @@ footer {
 .gallery figcaption {
     display:block;
     color: var(--body-dark-green); 
-    padding: 2% 1% 2% 1%;     /* Modify to improve spacing. */
+    padding: 2% 1% 2% 1%;
 }
 
 .gallery img  {

@@ -80,7 +80,7 @@ CREATE OR REPLACE TABLE `TransactionCars` (
   CONSTRAINT `fk_TransactionCars_Transactions1` FOREIGN KEY (`salesID`) REFERENCES `Transactions` (`salesID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
--- Insert Statements
+-- Sample Data
 INSERT INTO Cars (make, model, modelYear, carValue) VALUES 
 ("Ford", "Focus", "2010", 5000),
 ("Ferrari", "360 Modena", "1999", 500000),

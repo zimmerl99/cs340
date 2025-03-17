@@ -24,12 +24,12 @@ function updateCar(event) {
     }
 
     $.ajax({
-        url: `/cars/${carID}`,                                          // ensures the route based off carID for app.js PUT route
+        url: `/cars/${carID}`,                                              // ensures the route based off carID for app.js PUT route
         type: 'PUT',
         data: JSON.stringify(updatedCar),   
         contentType: 'application/json; charset=utf-8',
         success: function(response) {
-            window.location.href = '/cars';                             // when successful, reroute backt to cars.hbs
+            window.location.href = '/cars';                                 // when successful, reroute backt to cars.hbs
         },
     });
 }

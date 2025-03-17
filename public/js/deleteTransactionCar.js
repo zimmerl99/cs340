@@ -10,19 +10,17 @@ function deleteTransactionCar() {
   console.log(transactionCarID);                             // Debugging
 
   let link = '/delete-transactionCar-ajax/';                 // link to deleteTransactionCar ajax function
-  let data = {                                            // puts the extracted transactionCarID into a variable named within the function
+  let data = {                                               // puts the extracted transactionCarID into a variable named within the function
     id: transactionCarID 
   };
 
-  console.log("Sending data:", JSON.stringify(data));  // Debugging
-
-  $.ajax({
+  $.ajax({                                                   // ajax specifications for what to do with the data
       url: link,
       type: 'DELETE',
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        window.location.href = "/transactionCars";         // when successful reroutes back to transactionCars.hbs
+        window.location.href = "/transactionCars";           // when successful reroutes back to transactionCars.hbs
       }
   });
 }
